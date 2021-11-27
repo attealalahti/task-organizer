@@ -1,0 +1,74 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "content": "Take out the garbage.",
+      "tagIds": []
+    },
+    {
+      "id": "24",
+      "content": "Mow the lawn.",
+      "tagIds": []
+    },
+    {
+      "id": "25",
+      "content": "Do homework.",
+      "tagIds": []
+    },
+    {
+      "id": "32",
+      "content": "Watch TV.",
+      "tagIds": []
+    },
+    {
+      "id": "38",
+      "content": "This is an arrest.",
+      "tagIds": []
+    },
+    {
+      "id": "39",
+      "content": "This is a thing",
+      "tagIds": []
+    }
+  ],
+  "lists": [
+    {
+      "id": "5",
+      "title": "To-do",
+      "taskIds": [
+        "1",
+        "24",
+        "32"
+      ]
+    },
+    {
+      "id": "6",
+      "title": "Done",
+      "taskIds": [
+        "38",
+        "39"
+      ]
+    }
+  ],
+  "listOrder": [
+    "5",
+    "6"
+  ],
+  "tags": [
+    {
+      "id": "40",
+      "name": "Testing W"
+    },
+    {
+      "id": "41",
+      "name": "S H I T yo"
+    },
+    {
+      "id": "42",
+      "name": "Another"
+    }
+  ],
+  "autoIncrement": {
+    "next": 46
+  }
+}

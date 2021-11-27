@@ -1,38 +1,146 @@
+body {
+    color: white;
+    background-color: black;
+}
+.Links {
+    padding: 30px;
+    background-color: rgb(29, 207, 148);
+    text-align: left;
+}
+a {
+    padding: 30px;
+    text-decoration: none;
+    font-weight: 500;
+    color: black;
+    font-size: 22px;
+}
+a:hover {
+    background-color: rgb(13, 255, 174);
+}
+.Content {
+    margin: auto;
+    margin-top: 20px;
+}
+
 .App {
-  text-align: center;
+    text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Task {
+    padding: 15px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+    background-color: black;
+    font-size: 20px;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Task .GridContainer {
+    display: grid;
+    grid-template-columns: auto 360px auto;
+    gap: 10px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+form.EditTask input {
+    font-size: 18px;
+    border: none;
+    outline: none;
+    color: white;
+    background-color: black;
+    height: 20px;
+    width: 330px;
 }
-
-.App-link {
-  color: #61dafb;
+.ListContainer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.List {
+    border-style: solid;
+    border-width: 2px;
+    border-color: white;
+    width: 500px;
+    margin: 20px;
+}
+form {
+    display: inline;
+}
+form.NewTask {
+    display: block;
+    padding: 15px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+}
+input.Text {
+    border: none;
+    outline: none;
+    color: white;
+    background-color: black;
+    font-size: 18px;
+    width: 380px;
+}
+input.Submit {
+    margin-left: 25px;
+}
+.TagContainer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.Tag {
+    background-color: rgb(13, 255, 174);
+    color: black;
+    padding: 7px;
+    border-radius: 15px;
+    display: inline;
+}
+.Tag .Buttons {
+    display: inline;
+}
+.Tag .Buttons button {
+    margin: 2px;
+}
+.Tag span {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+form.EditTag input {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    width: 100px;
+    background-color: inherit;
+}
+.TagArea {
+    margin-top: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    min-height: 20px;
+}
+.TagReference {
+    background-color: rgb(29, 207, 148);
+    color: black;
+    padding-left: 10px;
+    padding-right: 8px;
+    border-radius: 15px;
+    font-size: 14px;
+}
+.TagReference button {
+    size: 5px;
+    font-size: 12px;
+    margin-left: 3px;
+    background-color: inherit;
+    border-radius: 15px;
+    border-width: 1px;
+}
+.TagReference button:hover {
+    background-color: white;
+}
+.AddTag {
+    float: left;
+    width: 75px;
+    margin-right: 10px;
 }
