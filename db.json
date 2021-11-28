@@ -3,7 +3,9 @@
     {
       "id": "1",
       "content": "Take out the garbage.",
-      "tagIds": []
+      "tagIds": [
+        "65"
+      ]
     },
     {
       "id": "24",
@@ -19,7 +21,8 @@
       "id": "32",
       "content": "Watch TV.",
       "tagIds": [
-        "67"
+        "67",
+        "65"
       ]
     },
     {
@@ -35,17 +38,16 @@
       "id": "5",
       "title": "To-do",
       "taskIds": [
-        "24",
+        "38",
         "1",
-        "32",
-        "38"
+        "24"
       ]
     },
     {
       "id": "6",
       "title": "Done",
       "taskIds": [
-        "38"
+        "32"
       ]
     }
   ],
@@ -68,6 +70,6 @@
     }
   ],
   "autoIncrement": {
-    "next": 69
+    "next": 70
   }
 }

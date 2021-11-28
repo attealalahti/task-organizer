@@ -31,6 +31,7 @@ class List extends React.Component {
                 )
             )
         ) {
+            // Return style object that hides the element
             return { display: "none" };
         }
     };

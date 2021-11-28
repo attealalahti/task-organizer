@@ -237,6 +237,16 @@ class MainPage extends React.Component {
         } else {
             return (
                 <div>
+                    <div className="Search">
+                        <form onSubmit={this.handleNewTagSubmit}>
+                            <input
+                                id="newTagInput"
+                                placeholder="Search..."
+                                onChange={this.handleNewTagChange}
+                            />
+                            <input type="submit" value="Search" />
+                        </form>
+                    </div>
                     <div className="CreateTag">
                         <form onSubmit={this.handleNewTagSubmit}>
                             <input
