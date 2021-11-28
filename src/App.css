@@ -144,3 +144,11 @@ form.EditTag input {
     width: 75px;
     margin-right: 10px;
 }
+.CreateTag {
+    margin: 15px;
+}
+.CreateTag form * {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 17px;
+}

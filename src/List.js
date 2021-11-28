@@ -8,6 +8,7 @@ class List extends React.Component {
         this.state = { newTaskField: "" };
     }
     handleSubmit = (event) => {
+        event.preventDefault();
         // Don't do anything if the input only has white space
         if (this.state.newTaskField.replace(/\s/g, "").length) {
             // Create new task and clear the input field
@@ -15,7 +16,6 @@ class List extends React.Component {
             document.getElementById(`newTaskInput${this.props.list.id}`).value = "";
             this.setState({ newTaskField: "" });
         }
-        event.preventDefault();
     };
     handleChange = (event) => {
         this.setState({ newTaskField: event.target.value });

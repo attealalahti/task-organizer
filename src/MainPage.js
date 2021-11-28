@@ -15,6 +15,7 @@ class MainPage extends React.Component {
             tags: [],
             nextId: NaN,
         };
+        this.newTagText = "";
     }
     componentDidMount() {
         this.getData();
@@ -187,12 +188,41 @@ class MainPage extends React.Component {
             tagIds: newTagIds,
         });
     };
+    handleNewTagSubmit = async (event) => {
+        event.preventDefault();
+        // Don't do anything if the input only has white space
+        if (this.newTagText.replace(/\s/g, "").length) {
+            const newTag = { id: this.state.nextId.toString(), name: this.newTagText };
+            const newTags = Array.from(this.state.tags);
+            newTags.push(newTag);
+            this.setState({ nextId: this.state.nextId + 1, tags: newTags });
+            document.getElementById("newTagInput").value = "";
+            await axios.post("http://localhost:3010/tags", newTag);
+            await axios.patch("http://localhost:3010/autoIncrement", {
+                next: this.state.nextId,
+            });
+        }
+    };
+    handleNewTagChange = (event) => {
+        this.newTagText = event.target.value;
+    };
     render() {
         if (this.state.loading) {
             return <div>Loading...</div>;
         } else {
             return (
                 <div>
+                    <div className="CreateTag">
+                        <form onSubmit={this.handleNewTagSubmit}>
+                            <input
+                                id="newTagInput"
+                                placeholder="New tag..."
+                                autoComplete="off"
+                                onChange={this.handleNewTagChange}
+                            />
+                            <input type="submit" value="Add" />
+                        </form>
+                    </div>
                     <div className="TagContainer">
                         {this.state.tags.map((tag) => {
                             return (
