@@ -22,7 +22,7 @@
     },
     {
       "id": "38",
-      "content": "This is an arrest.",
+      "content": "Test task",
       "tagIds": []
     },
     {
@@ -57,15 +57,7 @@
   "tags": [
     {
       "id": "40",
-      "name": "Testing W"
-    },
-    {
-      "id": "41",
-      "name": "S H I T yo"
-    },
-    {
-      "id": "42",
-      "name": "Another"
+      "name": "Testing"
     }
   ],
   "autoIncrement": {

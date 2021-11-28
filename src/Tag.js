@@ -4,11 +4,8 @@ import axios from "axios";
 class Tag extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            editing: false,
-            name: this.props.name,
-        };
-        this.editingText = this.state.name;
+        this.state = { editing: false };
+        this.editingText = this.props.name;
     }
     startEdit = () => {
         this.setState({ editing: true });
@@ -16,7 +13,7 @@ class Tag extends React.Component {
     componentDidUpdate() {
         if (this.state.editing) {
             const element = document.getElementById(`tagEdit${this.props.id}`);
-            element.value = this.state.name;
+            element.value = this.props.name;
             element.focus();
             element.addEventListener("blur", (event) => {
                 this.setState({ editing: false });
@@ -35,7 +32,7 @@ class Tag extends React.Component {
                 </form>
             );
         } else {
-            return <span>{this.state.name}</span>;
+            return <span>{this.props.name}</span>;
         }
     }
     handleSubmit = async (event) => {
@@ -43,7 +40,7 @@ class Tag extends React.Component {
         // Don't do anything if the input only has white space
         if (this.editingText.replace(/\s/g, "").length) {
             // Set the content of the non-editing mode element and exit editing mode
-            this.setState({ editing: false, name: this.editingText });
+            this.setState({ editing: false });
             this.props.onEdit(this.props.id, this.editingText);
             await axios.patch(`http://localhost:3010/tags/${this.props.id}`, {
                 name: this.editingText,
