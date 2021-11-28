@@ -15,6 +15,7 @@ class MainPage extends React.Component {
             tags: [],
             selectedTags: [],
             nextId: NaN,
+            searchText: "",
         };
         this.newTagText = "";
     }
@@ -227,9 +228,15 @@ class MainPage extends React.Component {
         }
     }
     getIfNewTaskFieldVisible = () => {
-        if (!this.isAllTagSelected()) {
+        if (!this.isAllTagSelected() || this.state.searchText !== "") {
             return { display: "none" };
         }
+    };
+    handleSearchSubmit(event) {
+        event.preventDefault();
+    }
+    handleSearchChange = (event) => {
+        this.setState({ searchText: event.target.value });
     };
     render() {
         if (this.state.loading) {
@@ -238,13 +245,13 @@ class MainPage extends React.Component {
             return (
                 <div>
                     <div className="Search">
-                        <form onSubmit={this.handleNewTagSubmit}>
+                        <form onSubmit={this.handleSearchSubmit}>
                             <input
                                 id="newTagInput"
-                                placeholder="Search..."
-                                onChange={this.handleNewTagChange}
+                                placeholder="Search tasks..."
+                                autoComplete="off"
+                                onChange={this.handleSearchChange}
                             />
-                            <input type="submit" value="Search" />
                         </form>
                     </div>
                     <div className="CreateTag">
@@ -313,6 +320,7 @@ class MainPage extends React.Component {
                                             this.getIfNewTaskFieldVisible
                                         }
                                         selectedTags={this.state.selectedTags}
+                                        searchText={this.state.searchText}
                                     />
                                 );
                             })}

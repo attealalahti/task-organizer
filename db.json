@@ -21,8 +21,7 @@
       "id": "32",
       "content": "Watch TV.",
       "tagIds": [
-        "67",
-        "65"
+        "67"
       ]
     },
     {
@@ -47,7 +46,8 @@
       "id": "6",
       "title": "Done",
       "taskIds": [
-        "32"
+        "32",
+        "24"
       ]
     }
   ],
@@ -70,6 +70,6 @@
     }
   ],
   "autoIncrement": {
-    "next": 70
+    "next": 71
   }
 }

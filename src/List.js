@@ -23,13 +23,22 @@ class List extends React.Component {
     getIfVisible = () => {
         // If some tags are selected but none of the selected tag ids match with
         // any of tag ids in any of the tasks on this list
+        // OR
+        // search field has text but none of the tasks on this list
+        // include that text as a substring in their content
         if (
-            this.props.selectedTags.length !== 0 &&
-            !this.props.selectedTags.find((selectedTagId) =>
-                this.props.tasks.find((task) =>
-                    task.tagIds.find((tagId) => tagId === selectedTagId)
-                )
-            )
+            (this.props.selectedTags.length !== 0 &&
+                !this.props.selectedTags.find((selectedTagId) =>
+                    this.props.tasks.find((task) =>
+                        task.tagIds.find((tagId) => tagId === selectedTagId)
+                    )
+                )) ||
+            (this.props.searchText !== "" &&
+                !this.props.tasks.find((task) =>
+                    task.content
+                        .toLowerCase()
+                        .includes(this.props.searchText.toLowerCase())
+                ))
         ) {
             // Return style object that hides the element
             return { display: "none" };
@@ -52,6 +61,7 @@ class List extends React.Component {
                                         onDelete={this.props.onTaskDelete}
                                         updateTagIds={this.props.updateTagIds}
                                         selectedTags={this.props.selectedTags}
+                                        searchText={this.props.searchText}
                                     />
                                 ))}
                                 {provided.placeholder}

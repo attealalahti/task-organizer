@@ -79,10 +79,14 @@ class Task extends React.Component {
     };
     getIfVisible = () => {
         if (
-            this.props.selectedTags.length !== 0 &&
-            !this.props.selectedTags.find((selectedTagId) =>
-                this.props.task.tagIds.find((myTagId) => myTagId === selectedTagId)
-            )
+            (this.props.selectedTags.length !== 0 &&
+                !this.props.selectedTags.find((selectedTagId) =>
+                    this.props.task.tagIds.find((myTagId) => myTagId === selectedTagId)
+                )) ||
+            (this.props.searchText !== "" &&
+                !this.state.content
+                    .toLowerCase()
+                    .includes(this.props.searchText.toLowerCase()))
         ) {
             return "none";
         }
