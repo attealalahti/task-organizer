@@ -224,6 +224,12 @@ class MainPage extends React.Component {
                         </form>
                     </div>
                     <div className="TagContainer">
+                        <div className="Tag">
+                            <form className="Check">
+                                <input type="checkbox" />
+                            </form>
+                            <span>All</span>
+                        </div>
                         {this.state.tags.map((tag) => {
                             return (
                                 <Tag
