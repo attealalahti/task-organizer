@@ -208,17 +208,14 @@ class MainPage extends React.Component {
         this.newTagText = event.target.value;
     };
     handleTagCheckChange = (event, tagId) => {
-        // TODO
         let newSelectedTags;
         if (tagId === "all") {
             newSelectedTags = [];
+        } else if (event.target.checked) {
+            newSelectedTags = Array.from(this.state.selectedTags);
+            newSelectedTags.push(tagId);
         } else {
-            if (event.target.checked) {
-                newSelectedTags = Array.from(this.state.selectedTags);
-                newSelectedTags.push(tagId);
-            } else {
-                newSelectedTags = this.state.selectedTags.filter((id) => id !== tagId);
-            }
+            newSelectedTags = this.state.selectedTags.filter((id) => id !== tagId);
         }
         this.setState({ selectedTags: newSelectedTags });
     };
@@ -229,6 +226,11 @@ class MainPage extends React.Component {
             return false;
         }
     }
+    getIfNewTaskFieldVisible = () => {
+        if (!this.isAllTagSelected()) {
+            return { display: "none" };
+        }
+    };
     render() {
         if (this.state.loading) {
             return <div>Loading...</div>;
@@ -297,6 +299,9 @@ class MainPage extends React.Component {
                                         onTaskDelete={this.deleteTask}
                                         onTaskCreate={this.createTask}
                                         updateTagIds={this.updateTagIds}
+                                        getIfNewTaskFieldVisible={
+                                            this.getIfNewTaskFieldVisible
+                                        }
                                         selectedTags={this.state.selectedTags}
                                     />
                                 );

@@ -20,9 +20,23 @@ class List extends React.Component {
     handleChange = (event) => {
         this.setState({ newTaskField: event.target.value });
     };
+    getIfVisible = () => {
+        // If some tags are selected but none of the selected tag ids match with
+        // any of tag ids in any of the tasks on this list
+        if (
+            this.props.selectedTags.length !== 0 &&
+            !this.props.selectedTags.find((selectedTagId) =>
+                this.props.tasks.find((task) =>
+                    task.tagIds.find((tagId) => tagId === selectedTagId)
+                )
+            )
+        ) {
+            return { display: "none" };
+        }
+    };
     render() {
         return (
-            <div>
+            <div style={this.getIfVisible()}>
                 <div className="List">
                     <h2>{this.props.list.title}</h2>
                     <Droppable droppableId={this.props.list.id}>
@@ -43,7 +57,11 @@ class List extends React.Component {
                             </div>
                         )}
                     </Droppable>
-                    <form className="NewTask" onSubmit={this.handleSubmit}>
+                    <form
+                        className="NewTask"
+                        onSubmit={this.handleSubmit}
+                        style={this.props.getIfNewTaskFieldVisible()}
+                    >
                         <input
                             type="text"
                             id={`newTaskInput${this.props.list.id}`}
