@@ -13,6 +13,7 @@ class MainPage extends React.Component {
             lists: [],
             listOrder: [],
             tags: [],
+            selectedTags: [],
             nextId: NaN,
         };
         this.newTagText = "";
@@ -206,6 +207,28 @@ class MainPage extends React.Component {
     handleNewTagChange = (event) => {
         this.newTagText = event.target.value;
     };
+    handleTagCheckChange = (event, tagId) => {
+        // TODO
+        let newSelectedTags;
+        if (tagId === "all") {
+            newSelectedTags = [];
+        } else {
+            if (event.target.checked) {
+                newSelectedTags = Array.from(this.state.selectedTags);
+                newSelectedTags.push(tagId);
+            } else {
+                newSelectedTags = this.state.selectedTags.filter((id) => id !== tagId);
+            }
+        }
+        this.setState({ selectedTags: newSelectedTags });
+    };
+    isAllTagSelected() {
+        if (this.state.selectedTags.length === 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     render() {
         if (this.state.loading) {
             return <div>Loading...</div>;
@@ -226,11 +249,23 @@ class MainPage extends React.Component {
                     <div className="TagContainer">
                         <div className="Tag">
                             <form className="Check">
-                                <input type="checkbox" />
+                                <input
+                                    type="checkbox"
+                                    checked={this.isAllTagSelected()}
+                                    onChange={(event) =>
+                                        this.handleTagCheckChange(event, "all")
+                                    }
+                                />
                             </form>
                             <span>All</span>
                         </div>
                         {this.state.tags.map((tag) => {
+                            let checked = false;
+                            if (
+                                this.state.selectedTags.find((tagId) => tagId === tag.id)
+                            ) {
+                                checked = true;
+                            }
                             return (
                                 <Tag
                                     key={tag.id}
@@ -238,6 +273,8 @@ class MainPage extends React.Component {
                                     name={tag.name}
                                     onEdit={this.updateTag}
                                     onDelete={this.deleteTag}
+                                    onCheckBoxChange={this.handleTagCheckChange}
+                                    checked={checked}
                                 />
                             );
                         })}
@@ -260,6 +297,7 @@ class MainPage extends React.Component {
                                         onTaskDelete={this.deleteTask}
                                         onTaskCreate={this.createTask}
                                         updateTagIds={this.updateTagIds}
+                                        selectedTags={this.state.selectedTags}
                                     />
                                 );
                             })}

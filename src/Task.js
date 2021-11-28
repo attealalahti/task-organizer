@@ -77,6 +77,16 @@ class Task extends React.Component {
             tagIds: newTagIds,
         });
     };
+    getIfVisible = () => {
+        if (
+            this.props.selectedTags.length !== 0 &&
+            !this.props.selectedTags.find((selectedTagId) =>
+                this.props.task.tagIds.find((myTagId) => myTagId === selectedTagId)
+            )
+        ) {
+            return "none";
+        }
+    };
     render() {
         return (
             <Draggable draggableId={this.props.task.id} index={this.props.index}>
@@ -86,7 +96,10 @@ class Task extends React.Component {
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}
                         className="Task"
-                        style={{ ...provided.draggableProps.style }}
+                        style={{
+                            ...provided.draggableProps.style,
+                            display: this.getIfVisible(),
+                        }}
                     >
                         <div id={this.props.task.id + "grid"} className="GridContainer">
                             <div>

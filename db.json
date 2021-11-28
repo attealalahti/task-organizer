@@ -18,12 +18,16 @@
     {
       "id": "32",
       "content": "Watch TV.",
-      "tagIds": []
+      "tagIds": [
+        "67"
+      ]
     },
     {
       "id": "38",
       "content": "Test task",
-      "tagIds": []
+      "tagIds": [
+        "65"
+      ]
     },
     {
       "id": "39",
@@ -36,9 +40,9 @@
       "id": "5",
       "title": "To-do",
       "taskIds": [
+        "38",
         "1",
         "39",
-        "32",
         "24"
       ]
     },
@@ -46,7 +50,7 @@
       "id": "6",
       "title": "Done",
       "taskIds": [
-        "38"
+        "32"
       ]
     }
   ],
@@ -56,15 +60,19 @@
   ],
   "tags": [
     {
-      "id": "56",
-      "name": "Final"
+      "id": "65",
+      "name": "Test"
     },
     {
-      "id": "60",
-      "name": "Nothing"
+      "id": "66",
+      "name": "Another test"
+    },
+    {
+      "id": "67",
+      "name": "Urgent"
     }
   ],
   "autoIncrement": {
-    "next": 65
+    "next": 69
   }
 }

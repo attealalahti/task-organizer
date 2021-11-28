@@ -54,7 +54,13 @@ class Tag extends React.Component {
         return (
             <div className="Tag">
                 <form className="Check">
-                    <input type="checkbox" />
+                    <input
+                        type="checkbox"
+                        onChange={(event) =>
+                            this.props.onCheckBoxChange(event, this.props.id)
+                        }
+                        checked={this.props.checked}
+                    />
                 </form>
                 {this.getContentElement()}
                 <div className="Buttons">

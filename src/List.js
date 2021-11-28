@@ -36,6 +36,7 @@ class List extends React.Component {
                                         index={index}
                                         onDelete={this.props.onTaskDelete}
                                         updateTagIds={this.props.updateTagIds}
+                                        selectedTags={this.props.selectedTags}
                                     />
                                 ))}
                                 {provided.placeholder}
