@@ -43,6 +43,7 @@ class MainPage extends React.Component {
             id: this.state.nextId.toString(),
             content: content,
             tagIds: [],
+            lastEdit: Date.now(),
         };
         newTasks.push(newTask);
         const newTaskIds = Array.from(list.taskIds);
@@ -238,6 +239,26 @@ class MainPage extends React.Component {
     handleSearchChange = (event) => {
         this.setState({ searchText: event.target.value });
     };
+    sortListByLastEdit = async (list) => {
+        const newTaskIds = Array.from(list.taskIds);
+        newTaskIds.sort((a, b) => {
+            let taskA = this.state.tasks.find((task) => task.id === a);
+            let taskB = this.state.tasks.find((task) => task.id === b);
+            return taskB.lastEdit - taskA.lastEdit;
+        });
+        this.updateList(list, newTaskIds);
+        await axios.patch(`http://localhost:3010/lists/${list.id}`, {
+            taskIds: newTaskIds,
+        });
+    };
+    editTask = async (task, newContent) => {
+        const newTask = { ...task, content: newContent, lastEdit: Date.now() };
+        const newTasks = Array.from(this.state.tasks);
+        const index = newTasks.findIndex((t) => t.id === newTask.id);
+        newTasks.splice(index, 1, newTask);
+        this.setState({ tasks: newTasks });
+        await axios.patch(`http://localhost:3010/tasks/${newTask.id}`, newTask);
+    };
     render() {
         if (this.state.loading) {
             return <div>Loading...</div>;
@@ -250,6 +271,7 @@ class MainPage extends React.Component {
                                 id="newTagInput"
                                 placeholder="Search tasks..."
                                 autoComplete="off"
+                                type="search"
                                 onChange={this.handleSearchChange}
                             />
                         </form>
@@ -321,6 +343,8 @@ class MainPage extends React.Component {
                                         }
                                         selectedTags={this.state.selectedTags}
                                         searchText={this.state.searchText}
+                                        onSortByLastEdit={this.sortListByLastEdit}
+                                        onTaskEdit={this.editTask}
                                     />
                                 );
                             })}

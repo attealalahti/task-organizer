@@ -8,9 +8,8 @@ class Task extends React.Component {
         super(props);
         this.state = {
             editing: false,
-            content: this.props.task.content,
         };
-        this.editingText = this.state.content;
+        this.editingText = this.props.task.content;
     }
     startEdit = () => {
         this.setState({ editing: true });
@@ -18,7 +17,7 @@ class Task extends React.Component {
     componentDidUpdate() {
         if (this.state.editing) {
             const element = document.getElementById(`taskEdit${this.props.task.id}`);
-            element.value = this.state.content;
+            element.value = this.props.task.content;
             element.focus();
             element.addEventListener("blur", (event) => {
                 this.setState({ editing: false });
@@ -37,18 +36,16 @@ class Task extends React.Component {
                 </form>
             );
         } else {
-            return <span>{this.state.content}</span>;
+            return <span>{this.props.task.content}</span>;
         }
     }
-    handleEditSubmit = async (event) => {
+    handleEditSubmit = (event) => {
         event.preventDefault();
         // Don't do anything if the input only has white space
         if (this.editingText.replace(/\s/g, "").length) {
             // Set the content of the non-editing mode element and exit editing mode
-            this.setState({ content: this.editingText, editing: false });
-            await axios.patch(`http://localhost:3010/tasks/${this.props.task.id}`, {
-                content: this.editingText,
-            });
+            this.setState({ editing: false });
+            this.props.onEdit(this.props.task, this.editingText);
         }
     };
     handleEditChange = (event) => {
@@ -84,7 +81,7 @@ class Task extends React.Component {
                     this.props.task.tagIds.find((myTagId) => myTagId === selectedTagId)
                 )) ||
             (this.props.searchText !== "" &&
-                !this.state.content
+                !this.props.task.content
                     .toLowerCase()
                     .includes(this.props.searchText.toLowerCase()))
         ) {
@@ -105,7 +102,7 @@ class Task extends React.Component {
                             display: this.getIfVisible(),
                         }}
                     >
-                        <div id={this.props.task.id + "grid"} className="GridContainer">
+                        <div className="GridContainer">
                             <div>
                                 <button className="Edit" onClick={this.startEdit}>
                                     Edit

@@ -48,7 +48,14 @@ class List extends React.Component {
         return (
             <div style={this.getIfVisible()}>
                 <div className="List">
-                    <h2>{this.props.list.title}</h2>
+                    <div className="Header">
+                        <button
+                            onClick={() => this.props.onSortByLastEdit(this.props.list)}
+                        >
+                            Sort by last edit
+                        </button>
+                        <h2>{this.props.list.title}</h2>
+                    </div>
                     <Droppable droppableId={this.props.list.id}>
                         {(provided) => (
                             <div ref={provided.innerRef} {...provided.droppableProps}>
@@ -62,6 +69,7 @@ class List extends React.Component {
                                         updateTagIds={this.props.updateTagIds}
                                         selectedTags={this.props.selectedTags}
                                         searchText={this.props.searchText}
+                                        onEdit={this.props.onTaskEdit}
                                     />
                                 ))}
                                 {provided.placeholder}

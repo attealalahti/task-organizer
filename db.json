@@ -1,35 +1,47 @@
 {
   "tasks": [
     {
-      "id": "1",
-      "content": "Take out the garbage.",
-      "tagIds": [
-        "65"
-      ]
-    },
-    {
       "id": "24",
       "content": "Mow the lawn.",
-      "tagIds": []
+      "tagIds": [],
+      "lastEdit": 1638825026139
     },
     {
       "id": "25",
       "content": "Do homework.",
-      "tagIds": []
+      "tagIds": [],
+      "lastEdit": 1638820282877
     },
     {
       "id": "32",
       "content": "Watch TV.",
       "tagIds": [
-        "67"
-      ]
+        "67",
+        "65"
+      ],
+      "lastEdit": 1638821981668
     },
     {
       "id": "38",
-      "content": "Test task",
+      "content": "Test tasks.",
       "tagIds": [
         "65"
-      ]
+      ],
+      "lastEdit": 1638825056163
+    },
+    {
+      "id": "71",
+      "content": "Date test.",
+      "tagIds": [
+        "65"
+      ],
+      "lastEdit": 1638825038204
+    },
+    {
+      "id": "72",
+      "content": "Take out the garbage.",
+      "tagIds": [],
+      "lastEdit": 1638825690602
     }
   ],
   "lists": [
@@ -37,17 +49,17 @@
       "id": "5",
       "title": "To-do",
       "taskIds": [
-        "38",
-        "1",
-        "24"
+        "38"
       ]
     },
     {
       "id": "6",
-      "title": "Done",
+      "title": "Archive",
       "taskIds": [
-        "32",
-        "24"
+        "72",
+        "71",
+        "24",
+        "32"
       ]
     }
   ],
@@ -70,6 +82,6 @@
     }
   ],
   "autoIncrement": {
-    "next": 71
+    "next": 73
   }
 }

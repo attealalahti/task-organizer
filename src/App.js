@@ -9,19 +9,16 @@ function App() {
             <div className="App">
                 <div className="Links">
                     <Link to="/" className="homelink">
-                        HOME
+                        MANAGE TASKS
                     </Link>
+                    <Link to="/lists">MANAGE LISTS</Link>
                     <Link to="/info">INFO</Link>
-                    <Link to="/third_option">THIRD</Link>
                 </div>
                 <div className="Content">
                     <Routes>
                         <Route path="/" element={<MainPage />}></Route>
                         <Route path="info" element={<InfoPage />}></Route>
-                        <Route
-                            path="third_option"
-                            element={"Third option"}
-                        ></Route>
+                        <Route path="lists" element={"Third option"}></Route>
                         <Route
                             path="*"
                             element={

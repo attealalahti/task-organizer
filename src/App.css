@@ -16,6 +16,7 @@ a {
 }
 a:hover {
     background-color: rgb(13, 255, 174);
+    text-decoration: underline;
 }
 .Content {
     margin: auto;
@@ -59,6 +60,19 @@ form.EditTask input {
     border-color: white;
     width: 500px;
     margin: 20px;
+}
+.List .Header {
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+}
+.List .Header button {
+    float: left;
+    margin: 15px;
+    width: 80px;
+}
+.List .Header h2 {
+    width: 380px;
 }
 form {
     display: inline;
@@ -107,7 +121,7 @@ input.Submit {
     font-weight: bold;
 }
 .TagContainer div:first-child {
-    background-color: rgb(13, 255, 243);
+    background-color: rgb(245, 233, 69);
 }
 form.EditTag input {
     font-size: 16px;
