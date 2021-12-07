@@ -177,3 +177,30 @@ form.EditTag input {
     margin-right: 5px;
     font-size: 20px;
 }
+.ListDraggableContainer {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: fit-content;
+}
+.ListDraggable {
+    padding: 10px;
+    border-style: solid;
+    border-color: white;
+    border-width: 1px;
+    background-color: black;
+    /*background-color: rgb(56, 56, 56);*/
+    width: 700px;
+}
+.ListDraggable * {
+    float: left;
+}
+.ListDraggable button.Delete {
+    float: right;
+}
+.ListDraggable span {
+    float: none;
+}
+.ListDraggable button.Hide {
+    width: 60px;
+}

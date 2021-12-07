@@ -31,7 +31,11 @@ class ListsPage extends React.Component {
                     <DragDropContext onDragEnd={this.onDragEnd}>
                         <Droppable droppableId="lists">
                             {(provided) => (
-                                <div ref={provided.innerRef} {...provided.droppableProps}>
+                                <div
+                                    ref={provided.innerRef}
+                                    {...provided.droppableProps}
+                                    className="ListDraggableContainer"
+                                >
                                     {this.state.listOrder.map((listId, index) => (
                                         <ListDraggable
                                             key={listId}
