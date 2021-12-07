@@ -1,10 +1,10 @@
 import React from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-import List from "./List";
+import ListDroppable from "./ListDroppable";
 import Tag from "./Tag";
 import axios from "axios";
 
-class MainPage extends React.Component {
+class TasksPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,10 +19,7 @@ class MainPage extends React.Component {
         };
         this.newTagText = "";
     }
-    componentDidMount() {
-        this.getData();
-    }
-    async getData() {
+    async componentDidMount() {
         let tasks = (await axios.get("http://localhost:3010/tasks")).data;
         let lists = (await axios.get("http://localhost:3010/lists")).data;
         let listOrder = (await axios.get("http://localhost:3010/listOrder")).data;
@@ -330,7 +327,7 @@ class MainPage extends React.Component {
                                     this.state.tasks.find((task) => task.id === taskId)
                                 );
                                 return (
-                                    <List
+                                    <ListDroppable
                                         key={list.id}
                                         list={list}
                                         tasks={tasks}
@@ -356,4 +353,4 @@ class MainPage extends React.Component {
     }
 }
 
-export default MainPage;
+export default TasksPage;

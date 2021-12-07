@@ -1,24 +1,25 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-import MainPage from "./MainPage";
+import TasksPage from "./TasksPage";
 import InfoPage from "./InfoPage";
+import ListsPage from "./ListsPage";
 
 function App() {
     return (
         <BrowserRouter>
             <div className="App">
                 <div className="Links">
-                    <Link to="/" className="homelink">
+                    <Link to="/">INFO</Link>
+                    <Link to="/tasks" className="homelink">
                         MANAGE TASKS
                     </Link>
                     <Link to="/lists">MANAGE LISTS</Link>
-                    <Link to="/info">INFO</Link>
                 </div>
                 <div className="Content">
                     <Routes>
-                        <Route path="/" element={<MainPage />}></Route>
-                        <Route path="info" element={<InfoPage />}></Route>
-                        <Route path="lists" element={"Third option"}></Route>
+                        <Route path="/" element={<InfoPage />}></Route>
+                        <Route path="tasks" element={<TasksPage />}></Route>
+                        <Route path="lists" element={<ListsPage />}></Route>
                         <Route
                             path="*"
                             element={

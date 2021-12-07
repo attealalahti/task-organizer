@@ -126,7 +126,7 @@ class Task extends React.Component {
                                     className="AddTag"
                                     onChange={this.handleTagSelectChange}
                                 >
-                                    <option value="default">Add Tag</option>
+                                    <option value="default">Add tag</option>
                                     {this.props.allTags.map((tag) => {
                                         return (
                                             <option key={tag.id} value={tag.id}>

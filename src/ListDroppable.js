@@ -2,7 +2,7 @@ import React from "react";
 import { Droppable } from "react-beautiful-dnd";
 import Task from "./Task";
 
-class List extends React.Component {
+class ListDroppable extends React.Component {
     constructor(props) {
         super(props);
         this.state = { newTaskField: "" };
@@ -96,4 +96,4 @@ class List extends React.Component {
         );
     }
 }
-export default List;
+export default ListDroppable;
