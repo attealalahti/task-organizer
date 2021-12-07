@@ -16,8 +16,7 @@
       "id": "32",
       "content": "Watch TV.",
       "tagIds": [
-        "67",
-        "65"
+        "67"
       ],
       "lastEdit": 1638821981668
     },
@@ -40,7 +39,9 @@
     {
       "id": "72",
       "content": "Take out the garbage.",
-      "tagIds": [],
+      "tagIds": [
+        "66"
+      ],
       "lastEdit": 1638825690602
     }
   ],
@@ -49,8 +50,9 @@
       "id": "5",
       "title": "To-do",
       "taskIds": [
+        "38",
         "71",
-        "38"
+        "32"
       ]
     },
     {
@@ -58,8 +60,7 @@
       "title": "Archive",
       "taskIds": [
         "72",
-        "24",
-        "32"
+        "24"
       ]
     }
   ],
@@ -74,7 +75,7 @@
     },
     {
       "id": "66",
-      "name": "Another test"
+      "name": "Another"
     },
     {
       "id": "67",

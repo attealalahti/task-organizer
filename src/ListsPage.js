@@ -6,11 +6,18 @@ import ListDraggable from "./ListDraggable";
 class ListsPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { loading: true, lists: [] };
+        this.state = { loading: true, lists: [], listOrder: [], nextId: NaN };
     }
     async componentDidMount() {
         let lists = (await axios.get("http://localhost:3010/lists")).data;
-        this.setState({ loading: false, lists: lists });
+        let listOrder = (await axios.get("http://localhost:3010/listOrder")).data;
+        let autoIncrement = (await axios.get("http://localhost:3010/autoIncrement")).data;
+        this.setState({
+            loading: false,
+            lists: lists,
+            listOrder: listOrder,
+            nextId: autoIncrement.next,
+        });
     }
     onDragEnd = async (result) => {
         console.log(result);
@@ -25,11 +32,13 @@ class ListsPage extends React.Component {
                         <Droppable droppableId="lists">
                             {(provided) => (
                                 <div ref={provided.innerRef} {...provided.droppableProps}>
-                                    {this.state.lists.map((list, index) => (
+                                    {this.state.listOrder.map((listId, index) => (
                                         <ListDraggable
-                                            key={list.id}
+                                            key={listId}
                                             index={index}
-                                            list={list}
+                                            list={this.state.lists.find(
+                                                (list) => list.id === listId
+                                            )}
                                         />
                                     ))}
                                     {provided.placeholder}
