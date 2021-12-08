@@ -4,6 +4,7 @@ class EditableContent extends React.Component {
     editingText = this.props.content;
     componentDidUpdate() {
         if (this.props.editing) {
+            this.editingText = this.props.content;
             const element = document.getElementById(this.props.class + this.props.id);
             element.value = this.props.content;
             element.focus();

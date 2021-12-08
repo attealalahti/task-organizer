@@ -41,13 +41,13 @@ a:hover {
     gap: 10px;
 }
 form.EditTask input {
-    font-size: 18px;
-    border: none;
+    font-size: 20px;
     outline: none;
     color: white;
     background-color: black;
     height: 20px;
     width: 330px;
+    text-align: center;
 }
 .ListContainer {
     display: flex;
@@ -183,12 +183,14 @@ form.EditTag input {
 }
 .ListDraggable {
     padding: 10px;
+    font-size: 20px;
     border-style: solid;
     border-color: white;
     border-width: 1px;
     background-color: black;
     /*background-color: rgb(56, 56, 56);*/
     width: 700px;
+    height: 30px;
 }
 .ListDraggable * {
     float: left;
@@ -201,4 +203,18 @@ form.EditTag input {
 }
 .ListDraggable button.Hide {
     width: 60px;
+    margin-right: 10px;
+}
+.ListDraggable button {
+    padding: 5px;
+}
+form.EditList input {
+    outline: none;
+    font-size: 20px;
+    color: white;
+    background-color: black;
+    margin: 0 30px;
+    width: 440px;
+    height: 25px;
+    text-align: center;
 }

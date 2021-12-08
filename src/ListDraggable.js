@@ -1,9 +1,14 @@
+import axios from "axios";
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import EditableContent from "./EditableContent";
 
 class ListDraggable extends React.Component {
-    state = { editing: false };
+    state = { editing: false, title: this.props.list.title };
+    editList = async (list, newTitle) => {
+        this.setState({ title: newTitle });
+        await axios.patch(`http://localhost:3010/lists/${list.id}`, { title: newTitle });
+    };
     render() {
         return (
             <Draggable draggableId={this.props.list.id} index={this.props.index}>
@@ -22,11 +27,11 @@ class ListDraggable extends React.Component {
                         <EditableContent
                             editing={this.state.editing}
                             stopEditing={() => this.setState({ editing: false })}
-                            class="EditTask"
-                            content={this.props.list.title}
+                            class="EditList"
+                            content={this.state.title}
                             id={this.props.list.id}
                             objectToEdit={this.props.list}
-                            onEdit={this.props.onEdit}
+                            onEdit={this.editList}
                         />
                         <button
                             className="Delete"
