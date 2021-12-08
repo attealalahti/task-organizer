@@ -1,55 +1,8 @@
 import React from "react";
-import axios from "axios";
+import EditableContent from "./EditableContent";
 
 class Tag extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { editing: false };
-        this.editingText = this.props.name;
-    }
-    startEdit = () => {
-        this.setState({ editing: true });
-    };
-    componentDidUpdate() {
-        if (this.state.editing) {
-            const element = document.getElementById(`tagEdit${this.props.id}`);
-            element.value = this.props.name;
-            element.focus();
-            element.addEventListener("blur", (event) => {
-                this.setState({ editing: false });
-            });
-        }
-    }
-    getContentElement() {
-        if (this.state.editing) {
-            return (
-                <form className="EditTag" onSubmit={this.handleSubmit}>
-                    <input
-                        id={`tagEdit${this.props.id}`}
-                        onChange={this.handleChange}
-                        autoComplete="off"
-                    />
-                </form>
-            );
-        } else {
-            return <span>{this.props.name}</span>;
-        }
-    }
-    handleSubmit = async (event) => {
-        event.preventDefault();
-        // Don't do anything if the input only has white space
-        if (this.editingText.replace(/\s/g, "").length) {
-            // Set the content of the non-editing mode element and exit editing mode
-            this.setState({ editing: false });
-            this.props.onEdit(this.props.id, this.editingText);
-            await axios.patch(`http://localhost:3010/tags/${this.props.id}`, {
-                name: this.editingText,
-            });
-        }
-    };
-    handleChange = (event) => {
-        this.editingText = event.target.value;
-    };
+    state = { editing: false };
     render() {
         return (
             <div className="Tag">
@@ -57,19 +10,30 @@ class Tag extends React.Component {
                     <input
                         type="checkbox"
                         onChange={(event) =>
-                            this.props.onCheckBoxChange(event, this.props.id)
+                            this.props.onCheckBoxChange(event, this.props.tag.id)
                         }
                         checked={this.props.checked}
                     />
                 </form>
-                {this.getContentElement()}
+                <EditableContent
+                    editing={this.state.editing}
+                    stopEditing={() => this.setState({ editing: false })}
+                    class="EditTag"
+                    content={this.props.tag.name}
+                    id={this.props.tag.id}
+                    objectToEdit={this.props.tag}
+                    onEdit={this.props.onEdit}
+                />
                 <div className="Buttons">
-                    <button className="TagEdit" onClick={this.startEdit}>
+                    <button
+                        className="TagEdit"
+                        onClick={() => this.setState({ editing: true })}
+                    >
                         Edit
                     </button>
                     <button
                         className="TagDelete"
-                        onClick={() => this.props.onDelete(this.props.id)}
+                        onClick={() => this.props.onDelete(this.props.tag.id)}
                     >
                         Delete
                     </button>

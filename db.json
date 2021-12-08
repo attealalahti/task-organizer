@@ -15,10 +15,8 @@
     {
       "id": "32",
       "content": "Watch TV.",
-      "tagIds": [
-        "67"
-      ],
-      "lastEdit": 1638821981668
+      "tagIds": [],
+      "lastEdit": 1638974794692
     },
     {
       "id": "38",
@@ -30,31 +28,27 @@
     },
     {
       "id": "71",
-      "content": "Date test.",
+      "content": "Date test again.",
       "tagIds": [
         "65"
       ],
-      "lastEdit": 1638825038204
+      "lastEdit": 1638975024250
     },
     {
       "id": "72",
       "content": "Take out the garbage.",
       "tagIds": [
-        "66"
+        "67"
       ],
-      "lastEdit": 1638825690602
-    },
-    {
-      "id": "82",
-      "content": "Task task",
-      "tagIds": [],
-      "lastEdit": 1638968476642
+      "lastEdit": 1638974783343
     },
     {
       "id": "89",
       "content": "Eat dinner.",
-      "tagIds": [],
-      "lastEdit": 1638969540217
+      "tagIds": [
+        "67"
+      ],
+      "lastEdit": 1638974896086
     }
   ],
   "lists": [
@@ -62,18 +56,16 @@
       "id": "5",
       "title": "To-do",
       "taskIds": [
-        "38",
         "71",
-        "32",
-        "82"
+        "38"
       ]
     },
     {
       "id": "6",
       "title": "Archive",
       "taskIds": [
-        "72",
-        "89"
+        "89",
+        "72"
       ]
     },
     {
@@ -91,7 +83,9 @@
     {
       "id": "91",
       "title": "Final?",
-      "taskIds": []
+      "taskIds": [
+        "32"
+      ]
     }
   ],
   "listOrder": {
@@ -106,11 +100,7 @@
   "tags": [
     {
       "id": "65",
-      "name": "Test"
-    },
-    {
-      "id": "66",
-      "name": "Another"
+      "name": "Testing"
     },
     {
       "id": "67",

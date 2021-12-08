@@ -2,55 +2,10 @@ import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import axios from "axios";
 import TagReference from "./TagReference";
+import EditableContent from "./EditableContent";
 
 class Task extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            editing: false,
-        };
-        this.editingText = this.props.task.content;
-    }
-    startEdit = () => {
-        this.setState({ editing: true });
-    };
-    componentDidUpdate() {
-        if (this.state.editing) {
-            const element = document.getElementById(`taskEdit${this.props.task.id}`);
-            element.value = this.props.task.content;
-            element.focus();
-            element.addEventListener("blur", (event) => {
-                this.setState({ editing: false });
-            });
-        }
-    }
-    getContentElement() {
-        if (this.state.editing) {
-            return (
-                <form className="EditTask" onSubmit={this.handleEditSubmit}>
-                    <input
-                        id={`taskEdit${this.props.task.id}`}
-                        onChange={this.handleEditChange}
-                        autoComplete="off"
-                    />
-                </form>
-            );
-        } else {
-            return <span>{this.props.task.content}</span>;
-        }
-    }
-    handleEditSubmit = (event) => {
-        event.preventDefault();
-        // Don't do anything if the input only has white space
-        if (this.editingText.replace(/\s/g, "").length) {
-            // Set the content of the non-editing mode element and exit editing mode
-            this.setState({ editing: false });
-            this.props.onEdit(this.props.task, this.editingText);
-        }
-    };
-    handleEditChange = (event) => {
-        this.editingText = event.target.value;
-    };
+    state = { editing: false };
     handleTagSelectChange = async (event) => {
         if (
             event.target.value !== "default" &&
@@ -104,11 +59,22 @@ class Task extends React.Component {
                     >
                         <div className="GridContainer">
                             <div>
-                                <button className="Edit" onClick={this.startEdit}>
+                                <button
+                                    className="Edit"
+                                    onClick={() => this.setState({ editing: true })}
+                                >
                                     Edit
                                 </button>
                             </div>
-                            {this.getContentElement()}
+                            <EditableContent
+                                editing={this.state.editing}
+                                stopEditing={() => this.setState({ editing: false })}
+                                class="EditTask"
+                                content={this.props.task.content}
+                                id={this.props.task.id}
+                                objectToEdit={this.props.task}
+                                onEdit={this.props.onEdit}
+                            />
                             <div>
                                 <button
                                     className="Delete"

@@ -148,11 +148,14 @@ class TasksPage extends React.Component {
         updatedLists.splice(index, 0, newList);
         this.setState({ lists: updatedLists });
     }
-    updateTag = (tagId, newName) => {
+    updateTag = async (tag, newName) => {
         const newTags = Array.from(this.state.tags);
-        const index = newTags.findIndex((tag) => tag.id === tagId);
+        const index = newTags.findIndex((listTag) => listTag.id === tag.id);
         newTags[index].name = newName;
         this.setState({ tags: newTags });
+        await axios.patch(`http://localhost:3010/tags/${tag.id}`, {
+            name: newName,
+        });
     };
     deleteTag = async (tagId) => {
         const newTags = this.state.tags.filter((tag) => tag.id !== tagId);
@@ -292,8 +295,7 @@ class TasksPage extends React.Component {
                             return (
                                 <Tag
                                     key={tag.id}
-                                    id={tag.id}
-                                    name={tag.name}
+                                    tag={tag}
                                     onEdit={this.updateTag}
                                     onDelete={this.deleteTag}
                                     onCheckBoxChange={this.handleTagCheckChange}
