@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import ItemCreator from "./ItemCreator";
 import ListDraggable from "./ListDraggable";
 
 class ListsPage extends React.Component {
@@ -15,10 +16,30 @@ class ListsPage extends React.Component {
         this.setState({
             loading: false,
             lists: lists,
-            listOrder: listOrder,
+            listOrder: listOrder.order,
             nextId: autoIncrement.next,
         });
     }
+    handleNewListSubmit = async (newListTitle) => {
+        const newList = {
+            id: this.state.nextId.toString(),
+            title: newListTitle,
+            taskIds: [],
+        };
+        const newListOrder = [...this.state.listOrder, newList.id];
+        const newLists = [...this.state.lists, newList];
+        this.setState({
+            nextId: this.state.nextId + 1,
+            lists: newLists,
+            listOrder: newListOrder,
+        });
+        await axios.post("http://localhost:3010/lists", newList);
+        await axios.patch("http://localhost:3010/listOrder", { order: newListOrder });
+        await axios.patch("http://localhost:3010/autoIncrement", {
+            next: this.state.nextId,
+        });
+    };
+
     onDragEnd = async (result) => {
         console.log(result);
     };
@@ -28,6 +49,11 @@ class ListsPage extends React.Component {
         } else {
             return (
                 <div>
+                    <ItemCreator
+                        onSubmit={this.handleNewListSubmit}
+                        id="newListInput"
+                        placeholder="New list..."
+                    />
                     <DragDropContext onDragEnd={this.onDragEnd}>
                         <Droppable droppableId="lists">
                             {(provided) => (

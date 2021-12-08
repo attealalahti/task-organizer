@@ -43,6 +43,18 @@
         "66"
       ],
       "lastEdit": 1638825690602
+    },
+    {
+      "id": "82",
+      "content": "Task task",
+      "tagIds": [],
+      "lastEdit": 1638968476642
+    },
+    {
+      "id": "89",
+      "content": "Eat dinner.",
+      "tagIds": [],
+      "lastEdit": 1638969540217
     }
   ],
   "lists": [
@@ -52,7 +64,8 @@
       "taskIds": [
         "38",
         "71",
-        "32"
+        "32",
+        "82"
       ]
     },
     {
@@ -60,14 +73,36 @@
       "title": "Archive",
       "taskIds": [
         "72",
+        "89"
+      ]
+    },
+    {
+      "id": "89",
+      "title": "Test List",
+      "taskIds": [
         "24"
       ]
+    },
+    {
+      "id": "90",
+      "title": "another",
+      "taskIds": []
+    },
+    {
+      "id": "91",
+      "title": "Final?",
+      "taskIds": []
     }
   ],
-  "listOrder": [
-    "5",
-    "6"
-  ],
+  "listOrder": {
+    "order": [
+      "5",
+      "6",
+      "89",
+      "90",
+      "91"
+    ]
+  },
   "tags": [
     {
       "id": "65",
@@ -83,6 +118,6 @@
     }
   ],
   "autoIncrement": {
-    "next": 73
+    "next": 92
   }
 }

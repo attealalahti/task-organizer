@@ -161,10 +161,10 @@ form.EditTag input {
     width: 75px;
     margin-right: 10px;
 }
-.CreateTag {
+.CreateItem {
     margin: 15px;
 }
-.CreateTag form * {
+.CreateItem form * {
     margin-left: 5px;
     margin-right: 5px;
     font-size: 17px;
@@ -178,8 +178,6 @@ form.EditTag input {
     font-size: 20px;
 }
 .ListDraggableContainer {
-    display: flex;
-    flex-direction: column;
     margin: auto;
     width: fit-content;
 }

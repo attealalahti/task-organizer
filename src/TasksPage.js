@@ -3,6 +3,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 import ListDroppable from "./ListDroppable";
 import Tag from "./Tag";
 import axios from "axios";
+import ItemCreator from "./ItemCreator";
 
 class TasksPage extends React.Component {
     constructor(props) {
@@ -17,7 +18,6 @@ class TasksPage extends React.Component {
             nextId: NaN,
             searchText: "",
         };
-        this.newTagText = "";
     }
     async componentDidMount() {
         let tasks = (await axios.get("http://localhost:3010/tasks")).data;
@@ -29,7 +29,7 @@ class TasksPage extends React.Component {
             loading: false,
             tasks: tasks,
             lists: lists,
-            listOrder: listOrder,
+            listOrder: listOrder.order,
             tags: tags,
             nextId: autoIncrement.next,
         });
@@ -188,23 +188,15 @@ class TasksPage extends React.Component {
             tagIds: newTagIds,
         });
     };
-    handleNewTagSubmit = async (event) => {
-        event.preventDefault();
-        // Don't do anything if the input only has white space
-        if (this.newTagText.replace(/\s/g, "").length) {
-            const newTag = { id: this.state.nextId.toString(), name: this.newTagText };
-            const newTags = Array.from(this.state.tags);
-            newTags.push(newTag);
-            this.setState({ nextId: this.state.nextId + 1, tags: newTags });
-            document.getElementById("newTagInput").value = "";
-            await axios.post("http://localhost:3010/tags", newTag);
-            await axios.patch("http://localhost:3010/autoIncrement", {
-                next: this.state.nextId,
-            });
-        }
-    };
-    handleNewTagChange = (event) => {
-        this.newTagText = event.target.value;
+    handleNewTagSubmit = async (newTagText) => {
+        const newTag = { id: this.state.nextId.toString(), name: newTagText };
+        const newTags = Array.from(this.state.tags);
+        newTags.push(newTag);
+        this.setState({ nextId: this.state.nextId + 1, tags: newTags });
+        await axios.post("http://localhost:3010/tags", newTag);
+        await axios.patch("http://localhost:3010/autoIncrement", {
+            next: this.state.nextId,
+        });
     };
     handleTagCheckChange = (event, tagId) => {
         let newSelectedTags;
@@ -265,7 +257,6 @@ class TasksPage extends React.Component {
                     <div className="Search">
                         <form onSubmit={this.handleSearchSubmit}>
                             <input
-                                id="newTagInput"
                                 placeholder="Search tasks..."
                                 autoComplete="off"
                                 type="search"
@@ -273,17 +264,11 @@ class TasksPage extends React.Component {
                             />
                         </form>
                     </div>
-                    <div className="CreateTag">
-                        <form onSubmit={this.handleNewTagSubmit}>
-                            <input
-                                id="newTagInput"
-                                placeholder="New tag..."
-                                autoComplete="off"
-                                onChange={this.handleNewTagChange}
-                            />
-                            <input type="submit" value="Add" />
-                        </form>
-                    </div>
+                    <ItemCreator
+                        onSubmit={this.handleNewTagSubmit}
+                        id="newTagInput"
+                        placeholder="New tag..."
+                    />
                     <div className="TagContainer">
                         <div className="Tag">
                             <form className="Check">
