@@ -1,7 +1,9 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
+import EditableContent from "./EditableContent";
 
 class ListDraggable extends React.Component {
+    state = { editing: false };
     render() {
         return (
             <Draggable draggableId={this.props.list.id} index={this.props.index}>
@@ -14,8 +16,18 @@ class ListDraggable extends React.Component {
                         className="ListDraggable"
                     >
                         <button className="Hide">Hide</button>
-                        <button>Rename</button>
-                        <span> {this.props.list.title}</span>
+                        <button onClick={() => this.setState({ editing: true })}>
+                            Rename
+                        </button>
+                        <EditableContent
+                            editing={this.state.editing}
+                            stopEditing={() => this.setState({ editing: false })}
+                            class="EditTask"
+                            content={this.props.list.title}
+                            id={this.props.list.id}
+                            objectToEdit={this.props.list}
+                            onEdit={this.props.onEdit}
+                        />
                         <button className="Delete">Delete</button>
                     </div>
                 )}

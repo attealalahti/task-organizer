@@ -39,10 +39,22 @@ class ListsPage extends React.Component {
             next: this.state.nextId,
         });
     };
-
     onDragEnd = async (result) => {
-        console.log(result);
+        const { destination, source, draggableId } = result;
+        // Return early if didn't change place
+        if (!destination) {
+            return;
+        }
+        if (destination.index === source.index) {
+            return;
+        }
+        const newListOrder = Array.from(this.state.listOrder);
+        newListOrder.splice(source.index, 1);
+        newListOrder.splice(destination.index, 0, draggableId);
+        this.setState({ listOrder: newListOrder });
+        await axios.patch("http://localhost:3010/listOrder", { order: newListOrder });
     };
+
     render() {
         if (this.state.loading) {
             return <div>Loading...</div>;
