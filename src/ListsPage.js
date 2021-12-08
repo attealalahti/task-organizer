@@ -54,7 +54,15 @@ class ListsPage extends React.Component {
         this.setState({ listOrder: newListOrder });
         await axios.patch("http://localhost:3010/listOrder", { order: newListOrder });
     };
-
+    deleteList = async (list) => {
+        const newListOrder = this.state.listOrder.filter((listId) => listId !== list.id);
+        this.setState({ listOrder: newListOrder });
+        await axios.patch("http://localhost:3010/listOrder", { order: newListOrder });
+        await axios.delete(`http://localhost:3010/lists/${list.id}`);
+        await list.taskIds.forEach(async (taskId) => {
+            await axios.delete(`http://localhost:3010/tasks/${taskId}`);
+        });
+    };
     render() {
         if (this.state.loading) {
             return <div>Loading...</div>;
@@ -81,6 +89,7 @@ class ListsPage extends React.Component {
                                             list={this.state.lists.find(
                                                 (list) => list.id === listId
                                             )}
+                                            onDelete={this.deleteList}
                                         />
                                     ))}
                                     {provided.placeholder}

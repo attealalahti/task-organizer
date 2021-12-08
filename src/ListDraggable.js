@@ -28,7 +28,12 @@ class ListDraggable extends React.Component {
                             objectToEdit={this.props.list}
                             onEdit={this.props.onEdit}
                         />
-                        <button className="Delete">Delete</button>
+                        <button
+                            className="Delete"
+                            onClick={() => this.props.onDelete(this.props.list)}
+                        >
+                            Delete
+                        </button>
                     </div>
                 )}
             </Draggable>
