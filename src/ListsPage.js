@@ -25,6 +25,7 @@ class ListsPage extends React.Component {
             id: this.state.nextId.toString(),
             title: newListTitle,
             taskIds: [],
+            hidden: false,
         };
         const newListOrder = [...this.state.listOrder, newList.id];
         const newLists = [...this.state.lists, newList];
@@ -59,9 +60,9 @@ class ListsPage extends React.Component {
         this.setState({ listOrder: newListOrder });
         await axios.patch("http://localhost:3010/listOrder", { order: newListOrder });
         await axios.delete(`http://localhost:3010/lists/${list.id}`);
-        await list.taskIds.forEach(async (taskId) => {
+        for (let taskId of list.taskIds) {
             await axios.delete(`http://localhost:3010/tasks/${taskId}`);
-        });
+        }
     };
     render() {
         if (this.state.loading) {

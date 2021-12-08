@@ -26,6 +26,8 @@ class ListDroppable extends React.Component {
         // OR
         // search field has text but none of the tasks on this list
         // include that text as a substring in their content
+        // OR
+        // the list has been hidden on the manage lists page.
         if (
             (this.props.selectedTags.length !== 0 &&
                 !this.props.selectedTags.find((selectedTagId) =>
@@ -38,7 +40,8 @@ class ListDroppable extends React.Component {
                     task.content
                         .toLowerCase()
                         .includes(this.props.searchText.toLowerCase())
-                ))
+                )) ||
+            this.props.list.hidden
         ) {
             // Return style object that hides the element
             return { display: "none" };

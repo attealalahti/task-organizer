@@ -44,7 +44,7 @@ form.EditTask input {
     font-size: 20px;
     outline: none;
     color: white;
-    background-color: black;
+    background-color: inherit;
     height: 20px;
     width: 330px;
     text-align: center;
@@ -212,7 +212,7 @@ form.EditList input {
     outline: none;
     font-size: 20px;
     color: white;
-    background-color: black;
+    background-color: inherit;
     margin: 0 30px;
     width: 440px;
     height: 25px;

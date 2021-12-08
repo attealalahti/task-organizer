@@ -43,14 +43,16 @@
         "72",
         "89",
         "24"
-      ]
+      ],
+      "hidden": false
     },
     {
       "id": "6",
       "title": "Archive (Done)",
       "taskIds": [
         "32"
-      ]
+      ],
+      "hidden": false
     }
   ],
   "listOrder": {
@@ -70,6 +72,6 @@
     }
   ],
   "autoIncrement": {
-    "next": 94
+    "next": 105
   }
 }
