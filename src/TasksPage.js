@@ -17,6 +17,8 @@ class TasksPage extends React.Component {
             selectedTags: [],
             nextId: NaN,
             searchText: "",
+            optionsStyle: {},
+            optionButtonText: "See options",
         };
     }
     async componentDidMount() {
@@ -251,61 +253,77 @@ class TasksPage extends React.Component {
         this.setState({ tasks: newTasks });
         await axios.patch(`http://localhost:3010/tasks/${newTask.id}`, newTask);
     };
+    toggleShowOptions = () => {
+        if (this.state.optionsStyle.display === "block") {
+            this.setState({ optionsStyle: {}, optionButtonText: "See options" });
+        } else {
+            this.setState({
+                optionsStyle: { display: "block" },
+                optionButtonText: "Hide options",
+            });
+        }
+    };
     render() {
         if (this.state.loading) {
             return <div>Loading...</div>;
         } else {
             return (
                 <div>
-                    <button>Show additional options</button>
-                    <div className="SearchAndNewTag">
-                        <div className="Search">
-                            <form onSubmit={this.handleSearchSubmit}>
-                                <input
-                                    placeholder="Search tasks..."
-                                    autoComplete="off"
-                                    type="search"
-                                    onChange={this.handleSearchChange}
-                                />
-                            </form>
+                    <button className="OptionsButton" onClick={this.toggleShowOptions}>
+                        {this.state.optionButtonText}
+                    </button>
+                    <div className="Options" style={this.state.optionsStyle}>
+                        <div className="SearchAndNewTag">
+                            <div className="Search">
+                                <form onSubmit={this.handleSearchSubmit}>
+                                    <input
+                                        placeholder="Search tasks..."
+                                        autoComplete="off"
+                                        type="search"
+                                        onChange={this.handleSearchChange}
+                                    />
+                                </form>
+                            </div>
+                            <ItemCreator
+                                onSubmit={this.handleNewTagSubmit}
+                                id="newTagInput"
+                                placeholder="New tag..."
+                            />
                         </div>
-                        <ItemCreator
-                            onSubmit={this.handleNewTagSubmit}
-                            id="newTagInput"
-                            placeholder="New tag..."
-                        />
-                    </div>
-                    <div className="TagContainer">
-                        <div className="Tag">
-                            <form className="Check">
-                                <input
-                                    type="checkbox"
-                                    checked={this.isAllTagSelected()}
-                                    onChange={(event) =>
-                                        this.handleTagCheckChange(event, "all")
-                                    }
-                                />
-                            </form>
-                            <span>All</span>
+                        <div className="TagContainer">
+                            <div className="Tag">
+                                <form className="Check">
+                                    <input
+                                        type="checkbox"
+                                        checked={this.isAllTagSelected()}
+                                        onChange={(event) =>
+                                            this.handleTagCheckChange(event, "all")
+                                        }
+                                    />
+                                </form>
+                                <span>All</span>
+                            </div>
+                            {this.state.tags.map((tag) => {
+                                let checked = false;
+                                if (
+                                    this.state.selectedTags.find(
+                                        (tagId) => tagId === tag.id
+                                    )
+                                ) {
+                                    checked = true;
+                                }
+                                return (
+                                    <Tag
+                                        key={tag.id}
+                                        tag={tag}
+                                        onEdit={this.updateTag}
+                                        onDelete={this.deleteTag}
+                                        onCheckBoxChange={this.handleTagCheckChange}
+                                        checked={checked}
+                                    />
+                                );
+                            })}
                         </div>
-                        {this.state.tags.map((tag) => {
-                            let checked = false;
-                            if (
-                                this.state.selectedTags.find((tagId) => tagId === tag.id)
-                            ) {
-                                checked = true;
-                            }
-                            return (
-                                <Tag
-                                    key={tag.id}
-                                    tag={tag}
-                                    onEdit={this.updateTag}
-                                    onDelete={this.deleteTag}
-                                    onCheckBoxChange={this.handleTagCheckChange}
-                                    checked={checked}
-                                />
-                            );
-                        })}
                     </div>
                     <div className="ListContainer">
                         <DragDropContext onDragEnd={this.onDragEnd}>

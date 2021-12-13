@@ -43,6 +43,11 @@ a:hover {
 
 /* TASK MANAGEMENT PAGE */
 
+/* Options button */
+.OptionsButton {
+    display: none;
+}
+
 /* Search field */
 .Search {
     margin: 15px;
@@ -169,7 +174,7 @@ a:hover {
     width: 80px;
     margin-right: 10px;
 }
-/* Task tags */
+/* Tags on tasks */
 .TagArea {
     min-height: 30px;
 }
@@ -238,6 +243,17 @@ a:hover {
         padding: 10px;
         font-size: 18px;
     }
+    /* PAGE CONTENT */
+    /* TASK MANAGEMENT PAGE */
+    /* Options button */
+    .OptionsButton {
+        display: inline;
+        margin-top: 10px;
+    }
+    /* Hide options initially */
+    .Options {
+        display: none;
+    }
     /* Search field and New tag entry on the same line*/
     .SearchAndNewTag {
         display: flex;
@@ -253,29 +269,14 @@ a:hover {
     .CreateItem form * {
         font-size: 16px;
     }
+    /* Tags */
     .Tag span {
         font-size: 15px;
     }
     .EditTag {
         font-size: 15px;
     }
-    .NewTaskInput {
-        font-size: 16px;
-    }
-    .Task {
-        padding: 10px;
-        font-size: 17px;
-    }
-    .EditTask {
-        font-size: 17px;
-    }
-    .TagReference {
-        font-size: 12px;
-    }
-    .DeleteTagReference {
-        font-size: 10px;
-    }
-
+    /* LISTS */
     .List {
         width: 400px;
         margin: 10px;
@@ -284,14 +285,28 @@ a:hover {
         width: 280px;
     }
     .NewTaskInput {
+        font-size: 16px;
         width: 290px;
+    }
+    /* TASKS */
+    .Task {
+        padding: 10px;
+        font-size: 17px;
     }
     .Task .GridContainer {
         grid-template-columns: auto 270px auto;
         min-height: 20px;
     }
     .EditTask {
+        font-size: 17px;
         width: 250px;
+    }
+    /* Tags on tasks */
+    .TagReference {
+        font-size: 12px;
+    }
+    .DeleteTagReference {
+        font-size: 10px;
     }
 
     /* LIST MANAGEMENT PAGE */
