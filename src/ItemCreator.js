@@ -17,6 +17,7 @@ class ItemCreator extends React.Component {
                     }}
                 >
                     <input
+                        className="TextInput"
                         placeholder={this.props.placeholder}
                         autoComplete="off"
                         onChange={(event) => (this.inputText = event.target.value)}

@@ -86,7 +86,7 @@ class Task extends React.Component {
                                 </button>
                             </div>
                         </div>
-                        <div>
+                        <div className="TagArea">
                             <form>
                                 <select
                                     className="AddTag"
@@ -102,7 +102,7 @@ class Task extends React.Component {
                                     })}
                                 </select>
                             </form>
-                            <div className="TagArea">
+                            <div className="TaskTags">
                                 {this.props.task.tagIds.map((id) => {
                                     const tag = this.props.allTags.find(
                                         (currentTag) => currentTag.id === id

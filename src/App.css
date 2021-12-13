@@ -7,6 +7,10 @@ body {
 form {
     display: inline;
 }
+button,
+select {
+    padding: 5px;
+}
 
 /* Header */
 .Links {
@@ -63,12 +67,17 @@ a:hover {
 }
 .TagContainer .Tag:first-child {
     background-color: rgb(245, 233, 69);
+    height: 25px;
 }
 .Tag .Buttons {
     display: inline;
 }
 .Tag .Buttons button {
     margin: 2px;
+}
+.Check input {
+    width: 15px;
+    height: 15px;
 }
 .Tag span {
     margin-left: 5px;
@@ -145,28 +154,30 @@ a:hover {
     display: grid;
     grid-template-columns: auto 360px auto;
     gap: 10px;
+    min-height: 30px;
 }
 .EditTask {
     font-size: 20px;
     outline: none;
     color: white;
     background-color: inherit;
-    height: 20px;
     width: 330px;
     text-align: center;
 }
 .AddTag {
     float: left;
-    width: 75px;
+    width: 80px;
     margin-right: 10px;
 }
 /* Task tags */
 .TagArea {
+    min-height: 30px;
+}
+.TaskTags {
     margin-top: 5px;
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-    min-height: 20px;
 }
 .TagReference {
     background-color: rgb(29, 207, 148);
@@ -177,12 +188,12 @@ a:hover {
     font-size: 14px;
 }
 .DeleteTagReference {
-    size: 5px;
     font-size: 12px;
     margin-left: 3px;
     background-color: inherit;
     border-radius: 15px;
     border-width: 1px;
+    font-weight: 600;
 }
 .DeleteTagReference:hover {
     background-color: white;
@@ -205,6 +216,7 @@ a:hover {
     border-color: white;
     border-width: 1px;
     min-height: 30px;
+    width: 100%;
 }
 .EditList {
     outline: none;
@@ -213,4 +225,84 @@ a:hover {
     background-color: black;
     text-align: center;
     width: 480px;
+}
+
+@media screen and (max-width: 800px) {
+    /* Header */
+    .Links {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+    a {
+        padding: 10px;
+        font-size: 18px;
+    }
+    /* Search field and New tag entry on the same line*/
+    .SearchAndNewTag {
+        display: flex;
+        justify-content: center;
+    }
+    .Search form input {
+        font-size: 17px;
+        width: 175px;
+    }
+    .CreateItem form .TextInput {
+        width: 175px;
+    }
+    .CreateItem form * {
+        font-size: 16px;
+    }
+    .Tag span {
+        font-size: 15px;
+    }
+    .EditTag {
+        font-size: 15px;
+    }
+    .NewTaskInput {
+        font-size: 16px;
+    }
+    .Task {
+        padding: 10px;
+        font-size: 17px;
+    }
+    .EditTask {
+        font-size: 17px;
+    }
+    .TagReference {
+        font-size: 12px;
+    }
+    .DeleteTagReference {
+        font-size: 10px;
+    }
+
+    .List {
+        width: 400px;
+        margin: 10px;
+    }
+    .List .Header h2 {
+        width: 280px;
+    }
+    .NewTaskInput {
+        width: 290px;
+    }
+    .Task .GridContainer {
+        grid-template-columns: auto 270px auto;
+        min-height: 20px;
+    }
+    .EditTask {
+        width: 250px;
+    }
+
+    /* LIST MANAGEMENT PAGE */
+    .ListDraggable {
+        grid-template-columns: 60px auto 250px auto;
+    }
+    .ListDraggable span {
+        font-size: 17px;
+    }
+    .EditList {
+        font-size: 17px;
+        width: 230px;
+    }
 }

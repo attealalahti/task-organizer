@@ -257,21 +257,24 @@ class TasksPage extends React.Component {
         } else {
             return (
                 <div>
-                    <div className="Search">
-                        <form onSubmit={this.handleSearchSubmit}>
-                            <input
-                                placeholder="Search tasks..."
-                                autoComplete="off"
-                                type="search"
-                                onChange={this.handleSearchChange}
-                            />
-                        </form>
+                    <button>Show additional options</button>
+                    <div className="SearchAndNewTag">
+                        <div className="Search">
+                            <form onSubmit={this.handleSearchSubmit}>
+                                <input
+                                    placeholder="Search tasks..."
+                                    autoComplete="off"
+                                    type="search"
+                                    onChange={this.handleSearchChange}
+                                />
+                            </form>
+                        </div>
+                        <ItemCreator
+                            onSubmit={this.handleNewTagSubmit}
+                            id="newTagInput"
+                            placeholder="New tag..."
+                        />
                     </div>
-                    <ItemCreator
-                        onSubmit={this.handleNewTagSubmit}
-                        id="newTagInput"
-                        placeholder="New tag..."
-                    />
                     <div className="TagContainer">
                         <div className="Tag">
                             <form className="Check">
