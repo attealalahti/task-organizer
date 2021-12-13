@@ -10,6 +10,7 @@ class ListsPage extends React.Component {
         this.state = { loading: true, lists: [], listOrder: [], nextId: NaN };
     }
     async componentDidMount() {
+        this.props.setOpenPage("lists");
         let lists = (await axios.get("http://localhost:3010/lists")).data;
         let listOrder = (await axios.get("http://localhost:3010/listOrder")).data;
         let autoIncrement = (await axios.get("http://localhost:3010/autoIncrement")).data;

@@ -22,6 +22,7 @@ class TasksPage extends React.Component {
         };
     }
     async componentDidMount() {
+        this.props.setOpenPage("tasks");
         let tasks = (await axios.get("http://localhost:3010/tasks")).data;
         let lists = (await axios.get("http://localhost:3010/lists")).data;
         let listOrder = (await axios.get("http://localhost:3010/listOrder")).data;
