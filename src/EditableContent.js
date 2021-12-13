@@ -28,8 +28,9 @@ class EditableContent extends React.Component {
     render() {
         if (this.props.editing) {
             return (
-                <form className={this.props.class} onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit}>
                     <input
+                        className={this.props.class}
                         id={this.props.class + this.props.id}
                         onChange={this.handleChange}
                         autoComplete="off"

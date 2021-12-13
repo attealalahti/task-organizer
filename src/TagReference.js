@@ -5,7 +5,12 @@ class TagReference extends React.Component {
         return (
             <div className="TagReference">
                 {this.props.tag.name}
-                <button onClick={() => this.props.onDelete(this.props.id)}>X</button>
+                <button
+                    className="DeleteTagReference"
+                    onClick={() => this.props.onDelete(this.props.id)}
+                >
+                    X
+                </button>
             </div>
         );
     }

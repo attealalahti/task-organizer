@@ -80,7 +80,7 @@ class ListDroppable extends React.Component {
                         )}
                     </Droppable>
                     <form
-                        className="NewTask"
+                        className="NewTaskForm"
                         onSubmit={this.handleSubmit}
                         style={this.props.getIfNewTaskFieldVisible()}
                     >
@@ -89,10 +89,10 @@ class ListDroppable extends React.Component {
                             id={`newTaskInput${this.props.list.id}`}
                             placeholder="New task..."
                             autoComplete="off"
-                            className="Text"
+                            className="NewTaskInput"
                             onChange={this.handleChange}
                         />
-                        <input type="submit" value="Add" className="Submit" />
+                        <input type="submit" value="Add" className="NewTaskSubmit" />
                     </form>
                 </div>
             </div>

@@ -1,7 +1,14 @@
+/* Universal */
 body {
     color: white;
     background-color: black;
+    text-align: center;
 }
+form {
+    display: inline;
+}
+
+/* Header */
 .Links {
     padding: 30px;
     background-color: rgb(29, 207, 148);
@@ -18,37 +25,66 @@ a:hover {
     background-color: rgb(13, 255, 174);
     text-decoration: underline;
 }
-.Content {
-    margin: auto;
-    margin-top: 20px;
+
+/* PAGE CONTENT */
+
+/* New tag/list entry field */
+.CreateItem {
+    margin: 15px;
+}
+.CreateItem form * {
+    margin: 0 5px;
+    font-size: 17px;
 }
 
-.App {
-    text-align: center;
-}
+/* TASK MANAGEMENT PAGE */
 
-.Task {
-    padding: 15px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: white;
-    background-color: black;
+/* Search field */
+.Search {
+    margin: 15px;
+}
+.Search form input {
     font-size: 20px;
 }
-.Task .GridContainer {
-    display: grid;
-    grid-template-columns: auto 360px auto;
+
+/* Tags */
+.TagContainer {
+    display: flex;
+    justify-content: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
-form.EditTask input {
-    font-size: 20px;
+.Tag {
+    color: black;
+    padding: 7px;
+    border-radius: 15px;
+    display: inline;
+    background-color: rgb(13, 255, 174);
+}
+.TagContainer .Tag:first-child {
+    background-color: rgb(245, 233, 69);
+}
+.Tag .Buttons {
+    display: inline;
+}
+.Tag .Buttons button {
+    margin: 2px;
+}
+.Tag span {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.EditTag {
+    font-size: 16px;
+    border: none;
     outline: none;
-    color: white;
+    width: 100px;
     background-color: inherit;
-    height: 20px;
-    width: 330px;
-    text-align: center;
 }
+
+/* LISTS */
 .ListContainer {
     display: flex;
     justify-content: center;
@@ -74,17 +110,16 @@ form.EditTask input {
 .List .Header h2 {
     width: 380px;
 }
-form {
-    display: inline;
-}
-form.NewTask {
+
+/* New task entry */
+.NewTaskForm {
     display: block;
     padding: 15px;
     border-style: solid;
     border-width: 1px;
     border-color: white;
 }
-input.Text {
+.NewTaskInput {
     border: none;
     outline: none;
     color: white;
@@ -92,44 +127,40 @@ input.Text {
     font-size: 18px;
     width: 380px;
 }
-input.Submit {
+.NewTaskSubmit {
     margin-left: 25px;
 }
-.TagContainer {
-    display: flex;
-    justify-content: center;
+
+/* TASKS */
+.Task {
+    padding: 15px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+    background-color: black;
+    font-size: 20px;
+}
+/* Edit button, task description and delete button: */
+.Task .GridContainer {
+    display: grid;
+    grid-template-columns: auto 360px auto;
     gap: 10px;
-    flex-wrap: wrap;
 }
-.Tag {
-    background-color: rgb(13, 255, 174);
-    color: black;
-    padding: 7px;
-    border-radius: 15px;
-    display: inline;
-}
-.Tag .Buttons {
-    display: inline;
-}
-.Tag .Buttons button {
-    margin: 2px;
-}
-.Tag span {
-    margin-left: 5px;
-    margin-right: 5px;
-    font-size: 16px;
-    font-weight: bold;
-}
-.TagContainer div:first-child {
-    background-color: rgb(245, 233, 69);
-}
-form.EditTag input {
-    font-size: 16px;
-    border: none;
+.EditTask {
+    font-size: 20px;
     outline: none;
-    width: 100px;
+    color: white;
     background-color: inherit;
+    height: 20px;
+    width: 330px;
+    text-align: center;
 }
+.AddTag {
+    float: left;
+    width: 75px;
+    margin-right: 10px;
+}
+/* Task tags */
 .TagArea {
     margin-top: 5px;
     display: flex;
@@ -145,7 +176,7 @@ form.EditTag input {
     border-radius: 15px;
     font-size: 14px;
 }
-.TagReference button {
+.DeleteTagReference {
     size: 5px;
     font-size: 12px;
     margin-left: 3px;
@@ -153,68 +184,33 @@ form.EditTag input {
     border-radius: 15px;
     border-width: 1px;
 }
-.TagReference button:hover {
+.DeleteTagReference:hover {
     background-color: white;
 }
-.AddTag {
-    float: left;
-    width: 75px;
-    margin-right: 10px;
-}
-.CreateItem {
-    margin: 15px;
-}
-.CreateItem form * {
-    margin-left: 5px;
-    margin-right: 5px;
-    font-size: 17px;
-}
-.Search {
-    margin: 15px;
-}
-.Search form * {
-    margin-left: 5px;
-    margin-right: 5px;
-    font-size: 20px;
-}
+
+/* LIST MANAGEMENT PAGE */
+
+/* Lists */
 .ListDraggableContainer {
     margin: auto;
     width: fit-content;
 }
 .ListDraggable {
+    display: grid;
+    grid-template-columns: 60px auto 500px auto;
+    gap: 10px;
     padding: 10px;
     font-size: 20px;
     border-style: solid;
     border-color: white;
     border-width: 1px;
-    background-color: black;
-    /*background-color: rgb(56, 56, 56);*/
-    width: 700px;
-    height: 30px;
+    min-height: 30px;
 }
-.ListDraggable * {
-    float: left;
-}
-.ListDraggable button.Delete {
-    float: right;
-}
-.ListDraggable span {
-    float: none;
-}
-.ListDraggable button.Hide {
-    width: 60px;
-    margin-right: 10px;
-}
-.ListDraggable button {
-    padding: 5px;
-}
-form.EditList input {
+.EditList {
     outline: none;
     font-size: 20px;
     color: white;
-    background-color: inherit;
-    margin: 0 30px;
-    width: 440px;
-    height: 25px;
+    background-color: black;
     text-align: center;
+    width: 480px;
 }
