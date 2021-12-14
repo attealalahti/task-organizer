@@ -7,19 +7,30 @@ import ListDraggable from "./ListDraggable";
 class ListsPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { loading: true, lists: [], listOrder: [], nextId: NaN };
+        this.state = {
+            loading: true,
+            error: false,
+            lists: [],
+            listOrder: [],
+            nextId: NaN,
+        };
     }
     async componentDidMount() {
         this.props.setOpenPage("lists");
-        let lists = (await axios.get("http://localhost:3010/lists")).data;
-        let listOrder = (await axios.get("http://localhost:3010/listOrder")).data;
-        let autoIncrement = (await axios.get("http://localhost:3010/autoIncrement")).data;
-        this.setState({
-            loading: false,
-            lists: lists,
-            listOrder: listOrder.order,
-            nextId: autoIncrement.next,
-        });
+        try {
+            let lists = (await axios.get("http://localhost:3010/lists")).data;
+            let listOrder = (await axios.get("http://localhost:3010/listOrder")).data;
+            let autoIncrement = (await axios.get("http://localhost:3010/autoIncrement"))
+                .data;
+            this.setState({
+                loading: false,
+                lists: lists,
+                listOrder: listOrder.order,
+                nextId: autoIncrement.next,
+            });
+        } catch (error) {
+            this.setState({ loading: false, error: true });
+        }
     }
     handleNewListSubmit = async (newListTitle) => {
         const newList = {
@@ -68,6 +79,14 @@ class ListsPage extends React.Component {
     render() {
         if (this.state.loading) {
             return <div>Loading...</div>;
+        } else if (this.state.error) {
+            return (
+                <div>
+                    Error
+                    <br />
+                    Could not reach database.
+                </div>
+            );
         } else {
             return (
                 <div>

@@ -63,16 +63,17 @@
         "72",
         "89",
         "24",
-        "32",
-        "116",
-        "117"
+        "32"
       ],
       "hidden": false
     },
     {
       "id": "6",
       "title": "Archive (Done)",
-      "taskIds": [],
+      "taskIds": [
+        "117",
+        "116"
+      ],
       "hidden": false
     },
     {
