@@ -35,6 +35,22 @@ a:hover {
 
 /* PAGE CONTENT */
 
+/* INFO PAGE */
+.Columns {
+    display: flex;
+    max-width: 1100px;
+    margin: auto;
+    flex-wrap: wrap;
+}
+.Columns div {
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 0 20px;
+}
+.Paragraphs {
+    text-align: left;
+}
+
 /* New tag/list entry field */
 .CreateItem {
     margin: 15px;
