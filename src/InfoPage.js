@@ -10,7 +10,7 @@ class InfoPage extends React.Component {
                 <h1>Info</h1>
                 <h2>Atte Ala-Lahti</h2>
                 <p>
-                    Used a Font Awesome icon for the hamburger menu button. All other
+                    Used a Font Awesome icons for hamburger menu and x buttons. All other
                     assets are my own creations.
                 </p>
                 <div className="Columns">

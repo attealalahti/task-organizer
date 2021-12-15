@@ -9,7 +9,7 @@ class TagReference extends React.Component {
                     className="DeleteTagReference"
                     onClick={() => this.props.onDelete(this.props.id)}
                 >
-                    X
+                    <i className="fa fa-times"></i>
                 </button>
             </div>
         );
