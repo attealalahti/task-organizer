@@ -44,16 +44,14 @@ class TasksPage extends React.Component {
         }
     }
     createTask = async (content, list) => {
-        const newTasks = Array.from(this.state.tasks);
         const newTask = {
             id: this.state.nextId.toString(),
             content: content,
             tagIds: [],
             lastEdit: Date.now(),
         };
-        newTasks.push(newTask);
-        const newTaskIds = Array.from(list.taskIds);
-        newTaskIds.push(this.state.nextId.toString());
+        const newTasks = [...this.state.tasks, newTask];
+        const newTaskIds = [...list.taskIds, this.state.nextId.toString()];
         this.updateList(list, newTaskIds);
         this.setState({ tasks: newTasks, nextId: this.state.nextId + 1 });
         await axios.post("http://localhost:3010/tasks", newTask);
@@ -65,11 +63,8 @@ class TasksPage extends React.Component {
         });
     };
     deleteTask = async (taskId) => {
-        // Do this with filter actually
         const list = this.getList(taskId);
-        const newTaskIds = Array.from(list.taskIds);
-        const index = newTaskIds.findIndex((id) => id === taskId);
-        newTaskIds.splice(index, 1);
+        const newTaskIds = list.taskIds.filter((id) => id !== taskId);
         this.updateList(list, newTaskIds);
         await axios.delete(`http://localhost:3010/tasks/${taskId}`);
         await axios.patch(`http://localhost:3010/lists/${list.id}`, {
@@ -147,19 +142,26 @@ class TasksPage extends React.Component {
         });
     };
     updateList(oldList, newTaskIds) {
+        // Create a new list with updated task ids.
         const newList = {
             ...oldList,
             taskIds: newTaskIds,
         };
+        // Create copy of the lists array
         const updatedLists = Array.from(this.state.lists);
+        // Find the index of the list we want to update in the lists array
         const index = this.state.lists.findIndex((list) => list.id === oldList.id);
+        // Replace the list at the index with the updated list
         updatedLists.splice(index, 1);
         updatedLists.splice(index, 0, newList);
         this.setState({ lists: updatedLists });
     }
     updateTag = async (tag, newName) => {
+        // Create copy of the tags array
         const newTags = Array.from(this.state.tags);
+        // Find the index of the tag we want to update in the tags array
         const index = newTags.findIndex((listTag) => listTag.id === tag.id);
+        // Set the new name for the tag at the index in the copied array
         newTags[index].name = newName;
         this.setState({ tags: newTags });
         await axios.patch(`http://localhost:3010/tags/${tag.id}`, {
@@ -167,17 +169,23 @@ class TasksPage extends React.Component {
         });
     };
     deleteTag = async (tagId) => {
+        // Create copy of the tags array without the tag with the specified id
         const newTags = this.state.tags.filter((tag) => tag.id !== tagId);
         const newTasks = [];
         const tasksToPatch = [];
         this.state.tasks.forEach((task) => {
+            // If task has the tag that will be deleted
             let index = task.tagIds.findIndex((id) => id === tagId);
             if (index !== -1) {
+                // Create a copy of the tagIds array of the task without the id of the deleted tag
                 let newTagIds = Array.from(task.tagIds);
                 newTagIds.splice(index, 1);
-                let newTask = { id: task.id, content: task.content, tagIds: newTagIds };
-                newTasks.push(newTask);
+                // Create a copy of the task with updated tag ids
+                let newTask = { ...task, tagIds: newTagIds };
+                // Push the new task to an array of tasks that will be patched in the database
                 tasksToPatch.push(newTask);
+                // Push the updated task or the old task to a new array of all tasks
+                newTasks.push(newTask);
             } else {
                 newTasks.push(task);
             }
@@ -192,7 +200,9 @@ class TasksPage extends React.Component {
         await axios.delete(`http://localhost:3010/tags/${tagId}`);
     };
     updateTagIds = async (taskId, newTagIds) => {
+        // Create copy of the tasks array
         const newTasks = Array.from(this.state.tasks);
+        // Replace the tag ids of a specified task in the array
         const index = newTasks.findIndex((task) => task.id === taskId);
         newTasks[index].tagIds = newTagIds;
         this.setState({ tasks: newTasks });
@@ -200,28 +210,33 @@ class TasksPage extends React.Component {
             tagIds: newTagIds,
         });
     };
+    // Handles user submitting a new tag to create
     handleNewTagSubmit = async (newTagText) => {
         const newTag = { id: this.state.nextId.toString(), name: newTagText };
-        const newTags = Array.from(this.state.tags);
-        newTags.push(newTag);
+        const newTags = [...this.state.tags, newTag];
         this.setState({ nextId: this.state.nextId + 1, tags: newTags });
         await axios.post("http://localhost:3010/tags", newTag);
         await axios.patch("http://localhost:3010/autoIncrement", {
             next: this.state.nextId,
         });
     };
+    // Handles checking a tag checkbox
     handleTagCheckChange = (event, tagId) => {
         let newSelectedTags;
         if (tagId === "all") {
+            // If checked tag was All, deselect all tags
             newSelectedTags = [];
         } else if (event.target.checked) {
-            newSelectedTags = Array.from(this.state.selectedTags);
-            newSelectedTags.push(tagId);
+            // If interacted with checkbox is now checked, add the tag to selected tags
+            newSelectedTags = [...this.state.selectedTags, tagId];
         } else {
+            // If interacted with checkbox is not checked, remove it from selected tags
             newSelectedTags = this.state.selectedTags.filter((id) => id !== tagId);
         }
         this.setState({ selectedTags: newSelectedTags });
     };
+
+    // All tag is selected if no other tags are selected
     isAllTagSelected() {
         if (this.state.selectedTags.length === 0) {
             return true;
@@ -229,22 +244,30 @@ class TasksPage extends React.Component {
             return false;
         }
     }
+    // Returns a style object that hides the element if some tags are selected and/or the search bar has text
+    // Used for hiding the new task input when all lists might not be visible
     getIfNewTaskFieldVisible = () => {
         if (!this.isAllTagSelected() || this.state.searchText !== "") {
             return { display: "none" };
         }
     };
+    // Prevents default event when trying to submit a search.
+    // The app filters out tasks not within search parameters automatically, no submitting necessary
     handleSearchSubmit(event) {
         event.preventDefault();
     }
+    // Updates state with search bar text when it changes
     handleSearchChange = (event) => {
         this.setState({ searchText: event.target.value });
     };
+    // Orders the task ids array of a list from largest lastEdit time to smallest lastEdit time
     sortListByLastEdit = async (list) => {
         const newTaskIds = Array.from(list.taskIds);
         newTaskIds.sort((a, b) => {
+            // Find tasks with ids from task ids
             let taskA = this.state.tasks.find((task) => task.id === a);
             let taskB = this.state.tasks.find((task) => task.id === b);
+            // Returns negative when taskA's lastEdit time was larger and sorts taskA ahead of taskB.
             return taskB.lastEdit - taskA.lastEdit;
         });
         this.updateList(list, newTaskIds);
