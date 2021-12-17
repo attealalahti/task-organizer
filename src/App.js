@@ -6,14 +6,21 @@ import ListsPage from "./ListsPage";
 import { useState } from "react";
 
 function App() {
+    // Which page is open right now
     const [openPage, setOpenPage] = useState("");
+    // Hamburger menu open or closed state
     const [menuOpen, setMenuOpen] = useState(false);
+
+    // Return a class name that controls how hamburger menu links are shown
     function getPlacement(page) {
         if (page === openPage) {
+            // Currently open page's link is show at the top
             return "FirstLink";
         } else if (menuOpen) {
+            // Other links are shown below it
             return "OtherLink";
         } else {
+            // If menu is not open, other links are hidden
             return "HiddenLink";
         }
     }
@@ -51,15 +58,7 @@ function App() {
                             path="lists"
                             element={<ListsPage setOpenPage={setOpenPage} />}
                         ></Route>
-                        <Route
-                            path="*"
-                            element={
-                                <p>
-                                    Error 404 <br />
-                                    Page Not Found
-                                </p>
-                            }
-                        ></Route>
+                        <Route path="*" element={<p>Page Not Found</p>}></Route>
                     </Routes>
                 </div>
             </div>

@@ -16,7 +16,9 @@ class ListsPage extends React.Component {
         };
     }
     async componentDidMount() {
+        // Set which page is open so hamburger menu knows which page name to show at the top
         this.props.setOpenPage("lists");
+        // Try to get data from the database
         try {
             let lists = (await axios.get("http://localhost:3010/lists")).data;
             let listOrder = (await axios.get("http://localhost:3010/listOrder")).data;
@@ -29,9 +31,11 @@ class ListsPage extends React.Component {
                 nextId: autoIncrement.next,
             });
         } catch (error) {
+            // Set state to show error message
             this.setState({ loading: false, error: true });
         }
     }
+    // Creates a new list and adds it to the relevant arrays when one is submitted
     handleNewListSubmit = async (newListTitle) => {
         const newList = {
             id: this.state.nextId.toString(),
@@ -52,40 +56,48 @@ class ListsPage extends React.Component {
             next: this.state.nextId,
         });
     };
+    // Happens when a draggable list has been dropped
     onDragEnd = async (result) => {
         const { destination, source, draggableId } = result;
-        // Return early if didn't change place
+        // Return early if list didn't change place
         if (!destination) {
             return;
         }
         if (destination.index === source.index) {
             return;
         }
+        // Remove the list from its previous index in the array and add it back to its current position
         const newListOrder = Array.from(this.state.listOrder);
         newListOrder.splice(source.index, 1);
         newListOrder.splice(destination.index, 0, draggableId);
         this.setState({ listOrder: newListOrder });
         await axios.patch("http://localhost:3010/listOrder", { order: newListOrder });
     };
+    // Deletes a list when a delete button is clicked
+    // The delete button calls this function with a list to delete
     deleteList = async (list) => {
+        // Create a copy of the list order without the deleted list's id
+        // No need to delete the list itself from the state
         const newListOrder = this.state.listOrder.filter((listId) => listId !== list.id);
         this.setState({ listOrder: newListOrder });
+        // Delete task from the database and update list order
         await axios.patch("http://localhost:3010/listOrder", { order: newListOrder });
         await axios.delete(`http://localhost:3010/lists/${list.id}`);
+        // Delete all tasks on the deleted list
         for (let taskId of list.taskIds) {
             await axios.delete(`http://localhost:3010/tasks/${taskId}`);
         }
     };
     render() {
         if (this.state.loading) {
-            return <div>Loading...</div>;
+            return <p>Loading...</p>;
         } else if (this.state.error) {
             return (
-                <div>
+                <p>
                     Error
                     <br />
                     Could not reach database.
-                </div>
+                </p>
             );
         } else {
             return (

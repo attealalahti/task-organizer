@@ -2,6 +2,7 @@ import React from "react";
 
 class InfoPage extends React.Component {
     componentDidMount() {
+        // Set which page is open so hamburger menu knows which page name to show at the top
         this.props.setOpenPage("info");
     }
     render() {

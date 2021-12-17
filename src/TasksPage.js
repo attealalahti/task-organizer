@@ -23,7 +23,9 @@ class TasksPage extends React.Component {
         };
     }
     async componentDidMount() {
+        // Set which page is open so hamburger menu knows which page name to show at the top
         this.props.setOpenPage("tasks");
+        // Try to get data from the database
         try {
             let tasks = (await axios.get("http://localhost:3010/tasks")).data;
             let lists = (await axios.get("http://localhost:3010/lists")).data;
@@ -40,9 +42,11 @@ class TasksPage extends React.Component {
                 nextId: autoIncrement.next,
             });
         } catch (error) {
+            // Set state to show error message
             this.setState({ loading: false, error: true });
         }
     }
+
     createTask = async (content, list) => {
         const newTask = {
             id: this.state.nextId.toString(),
@@ -50,9 +54,13 @@ class TasksPage extends React.Component {
             tagIds: [],
             lastEdit: Date.now(),
         };
+        // Make a copy of the tasks array with the new task added
         const newTasks = [...this.state.tasks, newTask];
-        const newTaskIds = [...list.taskIds, this.state.nextId.toString()];
+        // Add the id of the new task to its list's task id array
+        const newTaskIds = [...list.taskIds, newTask.id];
         this.updateList(list, newTaskIds);
+
+        // Update state with new task info and increment next id
         this.setState({ tasks: newTasks, nextId: this.state.nextId + 1 });
         await axios.post("http://localhost:3010/tasks", newTask);
         await axios.patch(`http://localhost:3010/lists/${list.id}`, {
@@ -62,10 +70,15 @@ class TasksPage extends React.Component {
             next: this.state.nextId,
         });
     };
+    // Deletes a task when a delete button is clicked
+    // The delete button calls this function with a taskId to delete
     deleteTask = async (taskId) => {
         const list = this.getList(taskId);
+        // Create a copy of the task's list without the task's id
+        // No need to delete the task itself from the state
         const newTaskIds = list.taskIds.filter((id) => id !== taskId);
         this.updateList(list, newTaskIds);
+        // Delete task from the database and update list with new task ids
         await axios.delete(`http://localhost:3010/tasks/${taskId}`);
         await axios.patch(`http://localhost:3010/lists/${list.id}`, {
             taskIds: newTaskIds,
@@ -73,17 +86,18 @@ class TasksPage extends React.Component {
     };
     // Get list based on the id of a task in it
     getList(taskId) {
-        for (let key in this.state.lists) {
-            for (let id of this.state.lists[key].taskIds) {
+        for (let list of this.state.lists) {
+            for (let id of list.taskIds) {
                 if (id === taskId) {
-                    return this.state.lists[key];
+                    return list;
                 }
             }
         }
     }
+    // Happens when a draggable task has been dropped
     onDragEnd = async (result) => {
         const { destination, source, draggableId } = result;
-        // Return early if didn't change place
+        // Return early task if didn't change place
         if (!destination) {
             return;
         }
@@ -96,12 +110,17 @@ class TasksPage extends React.Component {
         const sourceList = this.state.lists.find(
             (list) => list.id === source.droppableId
         );
+        // Create copy of the task id array of the source list
         const newSourceTaskIds = Array.from(sourceList.taskIds);
         if (source.droppableId === destination.droppableId) {
+            // If the task didn't move to a new list,
+            // remove it's id from the array and add it back in the new position
             newSourceTaskIds.splice(source.index, 1);
             newSourceTaskIds.splice(destination.index, 0, draggableId);
             this.updateList(sourceList, newSourceTaskIds);
         } else {
+            // If the task did move to a new list
+            // Find the list it moved to
             const destinationList = this.state.lists.find(
                 (list) => list.id === destination.droppableId
             );
@@ -110,7 +129,7 @@ class TasksPage extends React.Component {
             newSourceTaskIds.splice(source.index, 1);
             // Add the moved task to it's new index in the destination list
             newDestinationTaskIds.splice(destination.index, 0, draggableId);
-            // Create new source and destination lists based on their previous versions
+            // Create updated source and destination lists based on their previous versions
             const newSourceList = {
                 ...sourceList,
                 taskIds: newSourceTaskIds,
@@ -126,7 +145,7 @@ class TasksPage extends React.Component {
             const destinationIndex = this.state.lists.findIndex(
                 (list) => list.id === destinationList.id
             );
-            // Splice new lists into their previous indexes into a copy of the lists array
+            // Splice new lists at their correct indexes to a copy of the lists array
             const updatedLists = Array.from(this.state.lists);
             updatedLists.splice(sourceIndex, 1);
             updatedLists.splice(sourceIndex, 0, newSourceList);
@@ -168,6 +187,8 @@ class TasksPage extends React.Component {
             name: newName,
         });
     };
+    // Delete a tag and remove the reference to it from all tasks that have it
+    // A tag's delete button calls this function with the tag id.
     deleteTag = async (tagId) => {
         // Create copy of the tags array without the tag with the specified id
         const newTags = this.state.tags.filter((tag) => tag.id !== tagId);
@@ -210,7 +231,7 @@ class TasksPage extends React.Component {
             tagIds: newTagIds,
         });
     };
-    // Handles user submitting a new tag to create
+    // Creates a new tag and adds it to the tags array when one is submitted
     handleNewTagSubmit = async (newTagText) => {
         const newTag = { id: this.state.nextId.toString(), name: newTagText };
         const newTags = [...this.state.tags, newTag];
@@ -276,7 +297,9 @@ class TasksPage extends React.Component {
         });
     };
     editTask = async (task, newContent) => {
+        // Create new task based on the old one with new content and last edit time updated
         const newTask = { ...task, content: newContent, lastEdit: Date.now() };
+        // Splice the new task at it's correct index to the tasks array
         const newTasks = Array.from(this.state.tasks);
         const index = newTasks.findIndex((t) => t.id === newTask.id);
         newTasks.splice(index, 1, newTask);
@@ -284,6 +307,10 @@ class TasksPage extends React.Component {
         await axios.patch(`http://localhost:3010/tasks/${newTask.id}`, newTask);
     };
     toggleShowOptions = () => {
+        // By default options have a style of display none
+        // If options have a style to make them visible, remove it
+        // If not, add the style
+        // Also change button text appropriately
         if (this.state.optionsStyle.display === "block") {
             this.setState({ optionsStyle: {}, optionButtonText: "See options" });
         } else {
@@ -295,14 +322,14 @@ class TasksPage extends React.Component {
     };
     render() {
         if (this.state.loading) {
-            return <div>Loading...</div>;
+            return <p>Loading...</p>;
         } else if (this.state.error) {
             return (
-                <div>
+                <p>
                     Error
                     <br />
                     Could not reach database.
-                </div>
+                </p>
             );
         } else {
             return (
@@ -342,6 +369,7 @@ class TasksPage extends React.Component {
                                 <span>All</span>
                             </div>
                             {this.state.tags.map((tag) => {
+                                // Check the tag's checkbox if it has been selected
                                 let checked = false;
                                 if (
                                     this.state.selectedTags.find(
@@ -366,9 +394,11 @@ class TasksPage extends React.Component {
                     <div className="ListContainer">
                         <DragDropContext onDragEnd={this.onDragEnd}>
                             {this.state.listOrder.map((listId) => {
+                                // Find the list object based on its id
                                 const list = this.state.lists.find(
                                     (list) => list.id === listId
                                 );
+                                // Create an array of the list's task objects by finding each one from the tasks array based on it's id
                                 const tasks = list.taskIds.map((taskId) =>
                                     this.state.tasks.find((task) => task.id === taskId)
                                 );
