@@ -12,8 +12,12 @@ class InfoPage extends React.Component {
                 <h1>Info</h1>
                 <h2>Atte Ala-Lahti</h2>
                 <p>
-                    Used a Font Awesome icons for hamburger menu and x buttons. All other
-                    assets are my own creations.
+                    Used free to use Font Awesome icons for hamburger menu and X buttons.
+                    All other assets are my own creations.
+                </p>
+                <p>
+                    This application automatically saves the results of every action to
+                    the database.
                 </p>
                 <div className="Columns">
                     <div>
