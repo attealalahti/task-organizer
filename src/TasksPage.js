@@ -5,6 +5,7 @@ import Tag from "./Tag";
 import axios from "axios";
 import ItemCreator from "./ItemCreator";
 
+// The "Manage tasks" page
 class TasksPage extends React.Component {
     constructor(props) {
         super(props);
