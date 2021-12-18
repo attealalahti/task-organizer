@@ -1,4 +1,5 @@
 import React from "react";
+import HasOnlyWhiteSpace from "./HasOnlyWhiteSpace";
 
 // A component that can be switched between a span and a text input
 // Sends submitted text from the text input to the parent component that can then update this component's content props
@@ -26,7 +27,7 @@ class EditableContent extends React.Component {
     handleSubmit = async (event) => {
         event.preventDefault();
         // Don't do anything if the input only has white space
-        if (this.editingText.replace(/\s/g, "").length) {
+        if (!HasOnlyWhiteSpace(this.editingText)) {
             this.props.stopEditing();
             this.props.onEdit(this.props.objectToEdit, this.editingText);
         }
