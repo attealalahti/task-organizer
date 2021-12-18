@@ -1,4 +1,5 @@
 import React from "react";
+import HasOnlyWhiteSpace from "./HasOnlyWhiteSpace";
 
 class ItemCreator extends React.Component {
     inputText = "";
@@ -9,7 +10,7 @@ class ItemCreator extends React.Component {
                     onSubmit={(event) => {
                         event.preventDefault();
                         // Don't do anything if the input only has white space
-                        if (this.inputText.replace(/\s/g, "").length) {
+                        if (!HasOnlyWhiteSpace(this.inputText)) {
                             document.getElementById(this.props.id).value = "";
                             this.props.onSubmit(this.inputText);
                             this.inputText = "";
