@@ -1,6 +1,6 @@
 import React from "react";
 import { Droppable } from "react-beautiful-dnd";
-import Task from "./Task";
+import TaskDraggable from "./TaskDraggable";
 
 class ListDroppable extends React.Component {
     constructor(props) {
@@ -63,7 +63,7 @@ class ListDroppable extends React.Component {
                         {(provided) => (
                             <div ref={provided.innerRef} {...provided.droppableProps}>
                                 {this.props.tasks.map((task, index) => (
-                                    <Task
+                                    <TaskDraggable
                                         key={task.id}
                                         task={task}
                                         allTags={this.props.allTags}

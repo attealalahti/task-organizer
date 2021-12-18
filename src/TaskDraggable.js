@@ -4,7 +4,7 @@ import axios from "axios";
 import TagReference from "./TagReference";
 import EditableContent from "./EditableContent";
 
-class Task extends React.Component {
+class TaskDraggable extends React.Component {
     state = { editing: false };
     handleTagSelectChange = async (event) => {
         if (
@@ -125,4 +125,4 @@ class Task extends React.Component {
         );
     }
 }
-export default Task;
+export default TaskDraggable;
