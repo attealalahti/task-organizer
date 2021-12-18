@@ -4,6 +4,7 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import ItemCreator from "./ItemCreator";
 import ListDraggable from "./ListDraggable";
 
+// The "Manage lists" page
 class ListsPage extends React.Component {
     constructor(props) {
         super(props);
