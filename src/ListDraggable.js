@@ -25,13 +25,8 @@ class ListDraggable extends React.Component {
     };
     // Returns a color that is used to style the list's background
     getBackgroundColor(hidden) {
-        if (hidden) {
-            // Gray if hidden
-            return "rgb(30, 30, 30)";
-        } else {
-            // Black if not hidden
-            return "black";
-        }
+        // Gray if hidden, black if not hidden
+        return hidden ? "rgb(30, 30, 30)" : "black";
     }
     // Returns text for the button that toggles hiding
     // If list is already hidden, button says "Unhide"
