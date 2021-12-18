@@ -48,6 +48,7 @@ class TasksPage extends React.Component {
         }
     }
 
+    // Creates a task based on parameters sent by ListDroppable
     createTask = async (content, list) => {
         const newTask = {
             id: this.state.nextId.toString(),
@@ -176,6 +177,8 @@ class TasksPage extends React.Component {
         updatedLists.splice(index, 0, newList);
         this.setState({ lists: updatedLists });
     }
+    // Update name of a tag
+    // Called by a tag when submitting an edit
     updateTag = async (tag, newName) => {
         // Create copy of the tags array
         const newTags = Array.from(this.state.tags);
@@ -221,6 +224,8 @@ class TasksPage extends React.Component {
         }
         await axios.delete(`http://localhost:3010/tags/${tagId}`);
     };
+    // Updates new tag ids for a task
+    // Called by a task when adding or deleting tags
     updateTagIds = async (taskId, newTagIds) => {
         // Create copy of the tasks array
         const newTasks = Array.from(this.state.tasks);
@@ -289,7 +294,7 @@ class TasksPage extends React.Component {
             // Find tasks with ids from task ids
             let taskA = this.state.tasks.find((task) => task.id === a);
             let taskB = this.state.tasks.find((task) => task.id === b);
-            // Returns negative when taskA's lastEdit time was larger and sorts taskA ahead of taskB.
+            // Returns negative when taskA's lastEdit time is larger and sorts taskA ahead of taskB.
             return taskB.lastEdit - taskA.lastEdit;
         });
         this.updateList(list, newTaskIds);
