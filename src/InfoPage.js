@@ -13,7 +13,8 @@ class InfoPage extends React.Component {
                 <h2>Atte Ala-Lahti</h2>
                 <p>
                     Used free to use Font Awesome icons for hamburger menu and X buttons.
-                    All other assets are my own creations.
+                    Also used free to use libraries axios and react-beautiful-dnd. All
+                    other assets are my own creations.
                 </p>
                 <p>
                     This application automatically saves the results of every action to
