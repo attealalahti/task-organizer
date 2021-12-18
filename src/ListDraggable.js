@@ -36,11 +36,7 @@ class ListDraggable extends React.Component {
     // Returns text for the button that toggles hiding
     // If list is already hidden, button says "Unhide"
     getHideButtonText(hidden) {
-        if (hidden) {
-            return "Unhide";
-        } else {
-            return "Hide";
-        }
+        return hidden ? "Unhide" : "Hide";
     }
     render() {
         return (
