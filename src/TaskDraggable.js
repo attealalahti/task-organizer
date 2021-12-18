@@ -1,35 +1,40 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
-import axios from "axios";
 import TagReference from "./TagReference";
 import EditableContent from "./EditableContent";
 
 class TaskDraggable extends React.Component {
     state = { editing: false };
+    // Handles selecting a tag from the Add tag list
     handleTagSelectChange = async (event) => {
+        // If chosen option wasn't "Add tag" and this task doesn't already have the chosen tag
         if (
             event.target.value !== "default" &&
             !this.props.task.tagIds.find((id) => id === event.target.value)
         ) {
-            const newTagIds = Array.from(this.props.task.tagIds);
-            newTagIds.push(event.target.value);
+            // Create new tag ids array with selected tag added
+            const newTagIds = [...this.props.task.tagIds, event.target.value];
+            // Reset selector element
             event.target.value = "default";
+            // Send new tag ids array to parent for updating tasks
             await this.props.updateTagIds(this.props.task.id, newTagIds);
-            await axios.patch(`http://localhost:3010/tasks/${this.props.task.id}`, {
-                tagIds: newTagIds,
-            });
         } else {
+            // Reset selector element
             event.target.value = "default";
         }
     };
+    // Called by TagReference when its X button is clicked
     deleteTag = async (tagId) => {
+        // Create new tag ids array without the deleted tag
         const newTagIds = this.props.task.tagIds.filter((id) => id !== tagId);
+        // Send new tag ids array to parent for updating tasks
         await this.props.updateTagIds(this.props.task.id, newTagIds);
-        await axios.patch(`http://localhost:3010/tasks/${this.props.task.id}`, {
-            tagIds: newTagIds,
-        });
     };
     getIfVisible = () => {
+        // If some tags are selected but none of the tag ids on this task match with
+        // any of the selected tag ids
+        // OR
+        // search field has text but this task does not include that text as a substring in its content
         if (
             (this.props.selectedTags.length !== 0 &&
                 !this.props.selectedTags.find((selectedTagId) =>
@@ -40,6 +45,7 @@ class TaskDraggable extends React.Component {
                     .toLowerCase()
                     .includes(this.props.searchText.toLowerCase()))
         ) {
+            // Return display style that hides the element
             return "none";
         }
     };
@@ -104,6 +110,7 @@ class TaskDraggable extends React.Component {
                             </form>
                             <div className="TaskTags">
                                 {this.props.task.tagIds.map((id) => {
+                                    // Find each tag based on it id
                                     const tag = this.props.allTags.find(
                                         (currentTag) => currentTag.id === id
                                     );
