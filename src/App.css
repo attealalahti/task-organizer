@@ -229,7 +229,7 @@ a:hover {
 /* Lists */
 .ListDraggableContainer {
     margin: auto;
-    width: fit-content;
+    width: 740px;
 }
 .ListDraggable {
     display: grid;
@@ -355,11 +355,18 @@ a:hover {
     }
 
     /* LIST MANAGEMENT PAGE */
+    .ListDraggableContainer {
+        width: 420px;
+    }
     .ListDraggable {
-        grid-template-columns: 60px auto 210px auto;
+        grid-template-columns: 60px auto auto 230px;
     }
     .ListDraggable span {
         font-size: 17px;
+        order: 4;
+    }
+    .ListDraggable form {
+        order: 4;
     }
     .EditList {
         font-size: 17px;
