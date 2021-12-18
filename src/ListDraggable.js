@@ -3,6 +3,7 @@ import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import EditableContent from "./EditableContent";
 
+// List that can be dragged and dropped on the manage lists page.
 class ListDraggable extends React.Component {
     state = {
         editing: false,
