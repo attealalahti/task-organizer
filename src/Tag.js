@@ -1,6 +1,7 @@
 import React from "react";
 import EditableContent from "./EditableContent";
 
+// Tag that filters out tasks that do not have it when checking its checkbox
 class Tag extends React.Component {
     state = { editing: false };
     render() {
