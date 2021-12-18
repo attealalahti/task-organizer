@@ -13,7 +13,7 @@ class ItemCreator extends React.Component {
                         event.preventDefault();
                         // Don't do anything if the input only has white space
                         if (!HasOnlyWhiteSpace(this.inputText)) {
-                            // Remove text from the text input
+                            // Clear the text input
                             document.getElementById(this.props.id).value = "";
                             // Send input text to parent and reset it
                             this.props.onSubmit(this.inputText);
