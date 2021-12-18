@@ -1,24 +1,28 @@
 import React from "react";
 import { Droppable } from "react-beautiful-dnd";
+import HasOnlyWhiteSpace from "./HasOnlyWhiteSpace";
 import TaskDraggable from "./TaskDraggable";
 
+// A list of draggable tasks
 class ListDroppable extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { newTaskField: "" };
-    }
+    // Variable that stores the current string in the text input
+    newTaskText = "";
+    // Handle submit event of the New Task text input
     handleSubmit = (event) => {
         event.preventDefault();
         // Don't do anything if the input only has white space
-        if (this.state.newTaskField.replace(/\s/g, "").length) {
-            // Create new task and clear the input field
-            this.props.onTaskCreate(this.state.newTaskField, this.props.list);
+        if (!HasOnlyWhiteSpace(this.newTaskText)) {
+            // Send text from the input to parent component for it to create a new task
+            this.props.onTaskCreate(this.newTaskText, this.props.list);
+            // Clear the text input
             document.getElementById(`newTaskInput${this.props.list.id}`).value = "";
-            this.setState({ newTaskField: "" });
+            // Reset variable
+            this.newTaskText = "";
         }
     };
+    // Updates variable to the current text in the text input
     handleChange = (event) => {
-        this.setState({ newTaskField: event.target.value });
+        this.newTaskText = event.target.value;
     };
     getIfVisible = () => {
         // If some tags are selected but none of the selected tag ids match with
