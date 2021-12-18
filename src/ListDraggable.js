@@ -9,6 +9,7 @@ class ListDraggable extends React.Component {
         title: this.props.list.title,
         hidden: this.props.list.hidden,
     };
+    // Toggles whether list is hidden or not
     toggleHide = async () => {
         const newHidden = !this.state.hidden;
         this.setState({ hidden: newHidden });
@@ -16,17 +17,23 @@ class ListDraggable extends React.Component {
             hidden: newHidden,
         });
     };
+    // Called by the EditableContent component to update the list's title when it is edited
     editList = async (list, newTitle) => {
         this.setState({ title: newTitle });
         await axios.patch(`http://localhost:3010/lists/${list.id}`, { title: newTitle });
     };
+    // Returns a color that is used to style the list's background
     getBackgroundColor(hidden) {
         if (hidden) {
+            // Gray if hidden
             return "rgb(30, 30, 30)";
         } else {
+            // Black if not hidden
             return "black";
         }
     }
+    // Returns text for the button that toggles hiding
+    // If list is already hidden, button says "Unhide"
     getHideButtonText(hidden) {
         if (hidden) {
             return "Unhide";
