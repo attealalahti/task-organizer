@@ -4,7 +4,7 @@
       "id": "24",
       "content": "Mow the lawn.",
       "tagIds": [
-        "67"
+        "93"
       ],
       "lastEdit": 1639578430288
     },
@@ -15,39 +15,25 @@
       "lastEdit": 1638820282877
     },
     {
-      "id": "32",
-      "content": "Watch TV.",
-      "tagIds": [
-        "93"
-      ],
-      "lastEdit": 1639397963451
-    },
-    {
       "id": "72",
       "content": "Take out the garbage.",
       "tagIds": [
-        "93"
+        "67"
       ],
       "lastEdit": 1639396160629
     },
     {
-      "id": "89",
-      "content": "Eat dinner.",
-      "tagIds": [],
-      "lastEdit": 1639841393299
-    },
-    {
       "id": "116",
       "content": "Do homework.",
-      "tagIds": [
-        "93"
-      ],
-      "lastEdit": 1639429187245
+      "tagIds": [],
+      "lastEdit": 1639952701159
     },
     {
       "id": "117",
       "content": "Wash the dishes.",
-      "tagIds": [],
+      "tagIds": [
+        "67"
+      ],
       "lastEdit": 1639578420053
     }
   ],
@@ -56,19 +42,18 @@
       "id": "5",
       "title": "To-do",
       "taskIds": [
-        "24",
-        "32",
-        "72",
         "116",
-        "89",
-        "117"
+        "117",
+        "24"
       ],
       "hidden": false
     },
     {
       "id": "6",
-      "title": "Archive (Done)",
-      "taskIds": [],
+      "title": "Done (Archive)",
+      "taskIds": [
+        "72"
+      ],
       "hidden": false
     }
   ],
@@ -89,6 +74,6 @@
     }
   ],
   "autoIncrement": {
-    "next": 128
+    "next": 130
   }
 }
